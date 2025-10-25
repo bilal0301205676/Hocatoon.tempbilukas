@@ -11,9 +11,10 @@
         :root {
             --green-dark: #086B3C;
             --green-accent: #1FA84B;
-            --token-bg: #408C68;
+            --token-color: #FFC107;
             --text-color: #000000;
             --header-dark: #2c2c2c;
+            --card-bg: #FFFFFF;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,127 +25,75 @@
             min-height: 100vh;
         }
 
-        /* ШАПКА САЙТА (HEADER) */
-        header {
-            width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .header-top {
-            background: var(--header-dark); 
-            color: #FFFFFF;
-            padding: 15px 5%; 
-            display: flex;
-            justify-content: space-between; 
-            align-items: center;
-        }
-        .logo { 
-            font-family: 'Inter', sans-serif; 
-            font-size: 24px; 
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-        .profile-circle {
-            width: 36px; height: 36px; border-radius: 50%;
-            background: #D8F6E8; color: var(--green-dark);
-            font-weight: 700; display: flex; align-items: center;
-            justify-content: center; font-size: 16px;
-        }
-        .navigation-bar {
-            background: #FFFFFF; 
-            border-radius: 0 0 25px 25px;
-            padding: 12px 5%; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        .nav-links { 
-            display: flex; 
-            justify-content: space-around; 
-            list-style: none; 
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .nav-link a {
-            text-decoration: none; 
-            color: #333333; 
-            font-size: 15px;
-            font-weight: 600; 
-            padding: 5px 15px; 
-            transition: color 0.3s, border-color 0.3s;
-            border-bottom: 3px solid transparent;
-        }
-        .nav-link.active a { 
-            color: var(--green-accent); 
-            border-bottom: 3px solid var(--green-accent); 
-        }
+        /* --- СТИЛИ ШАПКИ (HEADER) - Общие --- */
+        header { width: 100%; position: sticky; top: 0; z-index: 1000; }
+        .header-top { background: var(--header-dark); color: #FFFFFF; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
+        .profile-circle { width: 36px; height: 36px; border-radius: 50%; background: #D8F6E8; color: var(--green-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .navigation-bar { background: #FFFFFF; border-radius: 0 0 25px 25px; padding: 12px 5%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .nav-links { display: flex; justify-content: space-around; list-style: none; max-width: 800px; margin: 0 auto; }
+        .nav-link a { text-decoration: none; color: #333333; font-size: 15px; font-weight: 600; padding: 5px 15px; border-bottom: 3px solid transparent; }
+        .nav-link.active a { color: var(--green-accent); border-bottom: 3px solid var(--green-accent); }
 
-        /* КОНТЕНТ ТАБЛИЦЫ ЛИДЕРОВ */
+        /* --- СТИЛИ КОНТЕНТА --- */
         .leaderboard-container {
             padding: 40px 5%; 
-            max-width: 700px; 
+            max-width: 800px; 
             margin: 0 auto;
         }
         .main-title {
             font-size: 44px; 
             font-weight: 800; 
             color: #FFFFFF;
-            text-align: center; 
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+            text-align: center;
         }
-        .leaderboard {
-            background: #FFFFFF; 
-            border-radius: 20px; 
+
+        .leaderboard-card {
+            background: var(--card-bg);
+            border-radius: 20px;
             padding: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
-        .leader-row {
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            padding: 15px 10px; 
-            border-bottom: 1px solid #EEEEEE;
+
+        .leader-table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        .leader-row.header {
-            font-weight: 800; 
-            font-size: 16px; 
+        .leader-table th, .leader-table td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .leader-table th {
+            background: #f8f8f8;
             color: var(--green-dark);
-            border-bottom: 2px solid var(--green-dark);
-        }
-        .leader-row.top-3 { 
-            background: #F0FFF0; 
-            font-weight: 700; 
-        }
-        .rank { 
-            width: 10%; 
-            text-align: center; 
-            font-size: 20px; 
-        }
-        .rank.gold { color: #FFD700; }
-        .rank.silver { color: #C0C0C0; }
-        .rank.bronze { color: #CD7F32; }
-        .name { 
-            flex-grow: 1; 
-            padding-left: 15px; 
             font-size: 16px;
+            font-weight: 700;
         }
-        .score { 
-            width: 25%; 
-            text-align: right; 
+
+        .rank-1 {
+            background: #FFD700; /* Золото */
             font-weight: 800;
-            color: #0e8b3f; 
-            font-size: 18px; 
         }
-        .leader-row.you {
-            background: var(--green-dark); 
-            color: #FFFFFF;
-            border-radius: 10px; 
-            margin-top: 20px; 
-            border: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        .rank-2 {
+            background: #C0C0C0; /* Серебро */
         }
-        .leader-row.you .score { 
-            color: #D8F6E8; 
+        .rank-3 {
+            background: #CD7F32; /* Бронза */
+        }
+        .leader-table tr:nth-child(even):not(.rank-1):not(.rank-2):not(.rank-3) {
+            background-color: #fcfcfc;
+        }
+        
+        .user-row {
+            background-color: #D8F6E8 !important; /* Выделение своей строки */
+            font-weight: 700;
+        }
+        
+        .score {
             font-weight: 800;
+            color: var(--green-accent);
         }
     </style>
 </head>
@@ -160,32 +109,65 @@
                 <li class="nav-link"><a href="index.html">Главное</a></li>
                 <li class="nav-link"><a href="quest.html">Квест</a></li>
                 <li class="nav-link active"><a href="leaderboard.html">Таблица лидеров</a></li>
+                <li class="nav-link"><a href="games.html">Игры</a></li>
+                <li class="nav-link"><a href="map.html">Карта</a></li>
+                <li class="nav-link"><a href="rewards.html">Награды</a></li>
                 <li class="nav-link"><a href="profile.html">Профиль</a></li>
+                <li class="nav-link"><a href="settings.html">Настройки</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="leaderboard-container">
-        <h1 class="main-title">Таблица лидеров</h1>
+        <h1 class="main-title">Таблица лидеров 🏆</h1>
 
-        <div class="leaderboard">
-            <div class="leader-row header">
-                <div class="rank">#</div>
-                <div class="name">Пользователь</div>
-                <div class="score">Токены SECO</div>
-            </div>
-            <div class="leader-row top-3"><div class="rank gold">🥇</div><div class="name">Анна К.</div><div class="score">3500</div></div>
-            <div class="leader-row top-3"><div class="rank silver">🥈</div><div class="name">Александр П.</div><div class="score">2890</div></div>
-            <div class="leader-row top-3"><div class="rank bronze">🥉</div><div class="name">Мария С.</div><div class="score">2100</div></div>
-            <div class="leader-row"><div class="rank">4</div><div class="name">Дмитрий М.</div><div class="score">1950</div></div>
-            <div class="leader-row"><div class="rank">5</div><div class="name">Елена Ф.</div><div class="score">1800</div></div>
-            <div class="leader-row"><div class="rank">6</div><div class="name">Сергей В.</div><div class="score">1650</div></div>
-            <div class="leader-row"><div class="rank">7</div><div class="name">Ольга Б.</div><div class="score">1500</div></div>
-            <div class="leader-row you">
-                <div class="rank">67</div>
-                <div class="name">Вы (Алексей)</div>
-                <div class="score">450</div>
-            </div>
+        <div class="leaderboard-card">
+            <table class="leader-table">
+                <thead>
+                    <tr>
+                        <th>Место</th>
+                        <th>Пользователь</th>
+                        <th style="text-align: right;">Очки (SECO)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="rank-1">
+                        <td>🥇</td>
+                        <td>Екатерина Л.</td>
+                        <td style="text-align: right;" class="score">3240</td>
+                    </tr>
+                    <tr class="rank-2">
+                        <td>🥈</td>
+                        <td>Иван П.</td>
+                        <td style="text-align: right;" class="score">2890</td>
+                    </tr>
+                    <tr class="rank-3">
+                        <td>🥉</td>
+                        <td>Марина В.</td>
+                        <td style="text-align: right;" class="score">2510</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Сергей К.</td>
+                        <td style="text-align: right;" class="score">2100</td>
+                    </tr>
+                    <tr class="user-row">
+                        <td>5</td>
+                        <td>Алексей С. (Вы)</td>
+                        <td style="text-align: right;" class="score">1950</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Ольга Н.</td>
+                        <td style="text-align: right;" class="score">1870</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Дмитрий Ч.</td>
+                        <td style="text-align: right;" class="score">1500</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </main>
 

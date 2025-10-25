@@ -11,10 +11,9 @@
         :root {
             --green-dark: #086B3C;
             --green-accent: #1FA84B;
-            --token-bg: #408C68;
+            --token-color: #FFC107;
             --text-color: #000000;
             --header-dark: #2c2c2c;
-            --btn-dark: #0e8b3f;
             --card-bg: #FFFFFF;
         }
 
@@ -26,196 +25,89 @@
             min-height: 100vh;
         }
 
-        /* --- СТИЛИ ШАПКИ (HEADER) --- */
-        header {
-            width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .header-top {
-            background: var(--header-dark); 
-            color: #FFFFFF;
-            padding: 15px 5%; 
-            display: flex;
-            justify-content: space-between; 
-            align-items: center;
-        }
-        .logo { 
-            font-family: 'Inter', sans-serif; 
-            font-size: 24px; 
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-        .profile-circle {
-            width: 36px; height: 36px; border-radius: 50%;
-            background: #D8F6E8; color: var(--green-dark);
-            font-weight: 700; display: flex; align-items: center;
-            justify-content: center; font-size: 16px;
-            cursor: pointer;
-        }
-        .navigation-bar {
-            background: #FFFFFF; 
-            border-radius: 0 0 25px 25px;
-            padding: 12px 5%; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        .nav-links { 
-            display: flex; 
-            justify-content: space-around; 
-            list-style: none; 
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .nav-link a {
-            text-decoration: none; 
-            color: #333333; 
-            font-size: 15px;
-            font-weight: 600; 
-            padding: 5px 15px; 
-            transition: color 0.3s, border-color 0.3s;
-            border-bottom: 3px solid transparent;
-        }
-        .nav-link.active a { 
-            color: var(--green-accent); 
-            border-bottom: 3px solid var(--green-accent); 
-        }
+        /* --- СТИЛИ ШАПКИ (HEADER) - Общие --- */
+        header { width: 100%; position: sticky; top: 0; z-index: 1000; }
+        .header-top { background: var(--header-dark); color: #FFFFFF; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
+        .profile-circle { width: 36px; height: 36px; border-radius: 50%; background: #D8F6E8; color: var(--green-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .navigation-bar { background: #FFFFFF; border-radius: 0 0 25px 25px; padding: 12px 5%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .nav-links { display: flex; justify-content: space-around; list-style: none; max-width: 800px; margin: 0 auto; }
+        .nav-link a { text-decoration: none; color: #333333; font-size: 15px; font-weight: 600; padding: 5px 15px; border-bottom: 3px solid transparent; }
+        .nav-link.active a { color: var(--green-accent); border-bottom: 3px solid var(--green-accent); }
 
-        /* --- СТИЛИ ПРОФИЛЯ --- */
+        /* --- СТИЛИ КОНТЕНТА --- */
         .profile-container {
             padding: 40px 5%; 
-            max-width: 900px; 
+            max-width: 700px; 
             margin: 0 auto;
-            color: #333;
         }
         .main-title {
             font-size: 44px; 
             font-weight: 800; 
             color: #FFFFFF;
             margin-bottom: 30px;
+            text-align: center;
         }
-        
+
         .profile-card {
             background: var(--card-bg);
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 40px;
+            text-align: center;
         }
+
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background: #D8F6E8;
-            color: var(--green-dark);
+            background: var(--green-accent);
+            color: white;
             font-size: 48px;
-            font-weight: 800;
+            font-weight: 700;
             display: flex;
-            align-items: center;
             justify-content: center;
-            border: 4px solid var(--green-accent);
-            margin-bottom: 15px;
-        }
-        .user-name {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
-        .user-rank {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--green-accent);
-            margin-bottom: 20px;
-        }
-        
-        .token-display {
-            background: var(--btn-dark);
-            color: #FFFFFF;
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-size: 22px;
-            font-weight: 700;
-            margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .token-display strong {
-            font-size: 32px;
-            font-weight: 900;
-            margin-right: 5px;
-        }
-        
-        /* Секция "Дерево" - фокус на сострадании */
-        .eco-impact-section {
-            background: #F0FFF0;
-            border: 2px solid var(--green-accent);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 30px;
-            text-align: left;
-            width: 100%;
-        }
-        .eco-impact-section h3 {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--green-dark);
-            margin-bottom: 15px;
-            display: flex;
             align-items: center;
+            margin: 0 auto 15px;
+            border: 5px solid #E8FFF0;
         }
-        .eco-impact-section h3 span { margin-right: 10px; }
 
-        .progress-bar-container {
-            width: 100%; 
-            height: 15px; 
-            background: #DFEEE0;
-            border-radius: 8px; 
-            margin-bottom: 5px; 
-            overflow: hidden;
-        }
-        .progress-bar { 
-            height: 100%; 
-            background: var(--green-accent); 
-            border-radius: 8px; 
-            transition: width 0.5s;
-        }
-        .progress-text { 
-            font-size: 14px; 
-            font-weight: 600; 
+        .username {
+            font-size: 32px;
+            font-weight: 800;
             color: var(--green-dark);
-            text-align: right; 
+            margin-bottom: 10px;
         }
 
-        .history-section h2 {
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-item {
+            padding: 15px;
+            background: #F0FFF0;
+            border-radius: 10px;
+        }
+
+        .stat-value {
             font-size: 24px;
             font-weight: 800;
-            color: #FFFFFF;
-            margin-bottom: 20px;
-        }
-        .history-list {
-            background: var(--card-bg);
-            border-radius: 15px;
-            list-style: none;
-            padding: 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        .history-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid #EEEEEE;
-            font-size: 16px;
-        }
-        .history-item:last-child { border-bottom: none; }
-        .action-details { font-weight: 600; }
-        .action-tokens { 
-            font-weight: 700; 
-            color: var(--green-accent); 
+            color: var(--green-accent);
+            margin-bottom: 5px;
         }
 
+        .stat-value.tokens {
+            color: var(--token-color);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #555;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -230,54 +122,41 @@
                 <li class="nav-link"><a href="index.html">Главное</a></li>
                 <li class="nav-link"><a href="quest.html">Квест</a></li>
                 <li class="nav-link"><a href="leaderboard.html">Таблица лидеров</a></li>
+                <li class="nav-link"><a href="games.html">Игры</a></li>
+                <li class="nav-link"><a href="map.html">Карта</a></li>
+                <li class="nav-link"><a href="rewards.html">Награды</a></li>
                 <li class="nav-link active"><a href="profile.html">Профиль</a></li>
+                <li class="nav-link"><a href="settings.html">Настройки</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="profile-container">
-        <h1 class="main-title">Мой Профиль</h1>
+        <h1 class="main-title">Мой Профиль 👤</h1>
 
         <div class="profile-card">
             <div class="avatar">А</div>
-            <div class="user-name">Алексей Смирнов</div>
-            <div class="user-rank">🌳 Эко-Герой (67 место в топе)</div>
-            
-            <div class="token-display">
-                Ваш вклад: <strong>450</strong> SECO Tokens
-            </div>
+            <div class="username">Алексей Смирнов</div>
+            <p>Место в рейтинге: 5 из 100</p>
 
-            <div class="eco-impact-section">
-                <h3><span>🌱</span> Мой вклад в посадку деревьев</h3>
-                <p>Квест: Посади дерево</p>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: 75%;"></div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value tokens">1950</div>
+                    <div class="stat-label">Всего SECO токенов</div>
                 </div>
-                <div class="progress-text"><strong>75%</strong> завершено. Скоро будет +50 SECO!</div>
+                <div class="stat-item">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Выполненных квестов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Посаженных деревьев</div>
+                </div>
             </div>
-        </div>
-
-        <div class="history-section">
-            <h2>История активности (Моя Помощь)</h2>
-            <ul class="history-list">
-                <li class="history-item">
-                    <div class="action-details">Сдан 1 кг пластика (Квест "Пластик")</div>
-                    <div class="action-tokens">+20 SECO</div>
-                </li>
-                <li class="history-item">
-                    <div class="action-details">Прогресс по посадке дерева (отметка 50%)</div>
-                    <div class="action-tokens">+10 SECO</div>
-                </li>
-                <li class="history-item">
-                    <div class="action-details">Регистрация в GreenEcoChain</div>
-                    <div class="action-tokens">+200 SECO</div>
-                </li>
-                <li class="history-item">
-                    <div class="action-details">Сданы батарейки (Квест "Батарейки")</div>
-                    <div class="action-tokens">+170 SECO</div>
-                </li>
-            </ul>
+            
+            <a href="settings.html" style="margin-top: 30px; display: inline-block; color: #1E88E5; font-weight: 600;">Редактировать профиль</a>
         </div>
     </main>
+
 </body>
 </html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GreenEcoChain - Карта</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <style>
+        :root {
+            --green-dark: #086B3C;
+            --green-accent: #1FA84B;
+            --header-dark: #2c2c2c;
+            --card-bg: #FFFFFF;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #FFFFFF 0%, var(--green-dark) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        /* --- СТИЛИ ШАПКИ (HEADER) - Общие --- */
+        header { width: 100%; position: sticky; top: 0; z-index: 1000; }
+        .header-top { background: var(--header-dark); color: #FFFFFF; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
+        .profile-circle { width: 36px; height: 36px; border-radius: 50%; background: #D8F6E8; color: var(--green-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .navigation-bar { background: #FFFFFF; border-radius: 0 0 25px 25px; padding: 12px 5%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .nav-links { display: flex; justify-content: space-around; list-style: none; max-width: 900px; margin: 0 auto; }
+        .nav-link a { text-decoration: none; color: #333333; font-size: 15px; font-weight: 600; padding: 5px 15px; border-bottom: 3px solid transparent; }
+        .nav-link.active a { color: var(--green-accent); border-bottom: 3px solid var(--green-accent); }
+        
+        /* --- СТИЛИ КАРТЫ --- */
+        .map-container {
+            padding: 40px 5%; 
+            max-width: 1200px; 
+            margin: 0 auto;
+        }
+        .main-title {
+            font-size: 44px; 
+            font-weight: 800; 
+            color: #FFFFFF;
+            margin-bottom: 30px;
+        }
+        
+        #map {
+            height: 600px; 
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1; 
+        }
+        
+        .map-info-panel {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #555;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <div class="logo">ECOCHAIN</div>
+            <div class="profile-circle">А</div>
+        </div>
+        <nav class="navigation-bar">
+            <ul class="nav-links">
+                <li class="nav-link"><a href="index.html">Главное</a></li>
+                <li class="nav-link"><a href="quest.html">Квест</a></li>
+                <li class="nav-link"><a href="leaderboard.html">Таблица лидеров</a></li>
+                <li class="nav-link"><a href="games.html">Игры</a></li>
+                <li class="nav-link active"><a href="map.html">Карта</a></li>
+                <li class="nav-link"><a href="rewards.html">Награды</a></li>
+                <li class="nav-link"><a href="profile.html">Профиль</a></li>
+                <li class="nav-link"><a href="settings.html">Настройки</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="map-container">
+        <h1 class="main-title">Эко-Карта (Пункты приема и посадки)</h1>
+
+        <div id="map"></div>
+        
+        <div class="map-info-panel">
+            <p>Здесь будут отображаться ближайшие пункты приема мусора и места, где можно посадить дерево для выполнения квестов. (Используется библиотека Leaflet)</p>
+        </div>
+    </main>
+    
+    <script>
+        // Инициализация карты (Leaflet)
+        const map = L.map('map').setView([55.75, 37.61], 10); // Координаты для примера (Москва)
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Пример маркеров
+        L.marker([55.75, 37.61]).addTo(map)
+            .bindPopup('Центральный пункт сбора пластика.')
+            .openPopup();
+            
+        L.marker([55.8, 37.7]).addTo(map)
+            .bindPopup('🌳 Рекомендуемое место для посадки деревьев.')
+            .openPopup();
+    </script>
+</body>
+</html>

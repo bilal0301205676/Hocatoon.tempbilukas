@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>GreenEcoChain - Игры</title>
+    <title>GreenEcoChain - Награды</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
@@ -11,10 +11,9 @@
         :root {
             --green-dark: #086B3C;
             --green-accent: #1FA84B;
-            --token-bg: #408C68;
-            --text-color: #000000;
             --header-dark: #2c2c2c;
             --card-bg: #FFFFFF;
+            --token-color: #FFC107; /* Желтый для токенов */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,11 +33,11 @@
         .nav-links { display: flex; justify-content: space-around; list-style: none; max-width: 900px; margin: 0 auto; }
         .nav-link a { text-decoration: none; color: #333333; font-size: 15px; font-weight: 600; padding: 5px 15px; border-bottom: 3px solid transparent; }
         .nav-link.active a { color: var(--green-accent); border-bottom: 3px solid var(--green-accent); }
-
-        /* --- СТИЛИ КОНТЕНТА ИГР --- */
-        .games-container {
+        
+        /* --- СТИЛИ НАГРАД --- */
+        .rewards-container {
             padding: 40px 5%; 
-            max-width: 1000px; 
+            max-width: 1200px; 
             margin: 0 auto;
         }
         .main-title {
@@ -48,64 +47,91 @@
             margin-bottom: 30px;
             text-align: center;
         }
-        
-        .games-grid {
+
+        .balance-info {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .balance-info h2 {
+            font-size: 20px;
+            color: #555;
+            font-weight: 600;
+        }
+        .balance-info strong {
+            font-size: 36px;
+            color: var(--token-color);
+            font-weight: 800;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .rewards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
 
-        .game-card {
+        .reward-card {
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-        }
-        
-        .game-icon {
-            font-size: 50px;
-            margin-bottom: 10px;
         }
 
-        .game-title {
-            font-size: 24px;
+        .reward-image {
+            width: 100%;
+            height: 200px;
+            background: #D8F6E8; /* Заглушка */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            font-weight: 800;
+        }
+
+        .reward-details {
+            padding: 20px;
+        }
+
+        .reward-title {
+            font-size: 22px;
             font-weight: 800;
             color: var(--green-dark);
             margin-bottom: 10px;
         }
-        
-        .game-description {
-            font-size: 15px;
-            color: #555;
+
+        .reward-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--token-color);
             margin-bottom: 20px;
-            flex-grow: 1;
+        }
+        .reward-price span {
+            font-size: 16px;
+            font-weight: 600;
+            color: #555;
+            margin-left: 5px;
         }
 
-        .start-btn {
+        .buy-btn {
             display: block;
             width: 100%;
-            padding: 10px 20px;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
             background: var(--green-accent);
             color: white;
-            border-radius: 25px;
+            font-size: 16px;
             font-weight: 700;
+            cursor: pointer;
             transition: background 0.2s;
         }
-        .start-btn:hover {
-            background: #198754;
-        }
-
+        .buy-btn:hover { background: #198754; }
     </style>
 </head>
 <body>
@@ -120,48 +146,54 @@
                 <li class="nav-link"><a href="index.html">Главное</a></li>
                 <li class="nav-link"><a href="quest.html">Квест</a></li>
                 <li class="nav-link"><a href="leaderboard.html">Таблица лидеров</a></li>
-                <li class="nav-link active"><a href="games.html">Игры</a></li>
+                <li class="nav-link"><a href="games.html">Игры</a></li>
                 <li class="nav-link"><a href="map.html">Карта</a></li>
-                <li class="nav-link"><a href="rewards.html">Награды</a></li>
+                <li class="nav-link active"><a href="rewards.html">Награды</a></li>
                 <li class="nav-link"><a href="profile.html">Профиль</a></li>
                 <li class="nav-link"><a href="settings.html">Настройки</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="games-container">
-        <h1 class="main-title">Эко-Игры (Деревья)</h1>
+    <main class="rewards-container">
+        <h1 class="main-title">Каталог Эко-Наград</h1>
 
-        <div class="games-grid">
+        <div class="balance-info">
+            <h2>Ваш текущий баланс:</h2>
+            <strong>1950 SECO</strong>
+        </div>
+
+        <div class="rewards-grid">
             
-            <a href="tree_quiz.html" class="game-card">
-                <div>
-                    <div class="game-icon">❓</div>
-                    <div class="game-title">Викторина "Лист или Хвоя"</div>
-                    <div class="game-description">Проверь свои знания о разных видах деревьев и их особенностях. За правильные ответы получишь токены!</div>
+            <div class="reward-card">
+                <div class="reward-image">🌱</div>
+                <div class="reward-details">
+                    <div class="reward-title">Посадка вашего дерева</div>
+                    <div class="reward-price">3000 <span>SECO</span></div>
+                    <button class="buy-btn">Купить</button>
                 </div>
-                <div class="start-btn">Начать игру</div>
-            </a>
+            </div>
             
-            <a href="#" class="game-card">
-                <div>
-                    <div class="game-icon">🌲</div>
-                    <div class="game-title">Найди Дерево</div>
-                    <div class="game-description">Игра на внимательность: найди и сопоставь силуэты деревьев с их названиями.</div>
+            <div class="reward-card">
+                <div class="reward-image">☕</div>
+                <div class="reward-details">
+                    <div class="reward-title">Скидка 10% в эко-кофейне</div>
+                    <div class="reward-price">500 <span>SECO</span></div>
+                    <button class="buy-btn">Купить</button>
                 </div>
-                <div class="start-btn" style="background: #ccc; cursor: default;">Скоро!</div>
-            </a>
-            
-            <a href="#" class="game-card">
-                <div>
-                    <div class="game-icon">🧩</div>
-                    <div class="game-title">Эко-Пазл</div>
-                    <div class="game-description">Собери пазл с изображением редких и исчезающих лесов мира.</div>
+            </div>
+
+            <div class="reward-card">
+                <div class="reward-image">📘</div>
+                <div class="reward-details">
+                    <div class="reward-title">Электронная книга об экологии</div>
+                    <div class="reward-price">250 <span>SECO</span></div>
+                    <button class="buy-btn">Купить</button>
                 </div>
-                <div class="start-btn" style="background: #ccc; cursor: default;">Скоро!</div>
-            </a>
+            </div>
             
         </div>
     </main>
+
 </body>
 </html>

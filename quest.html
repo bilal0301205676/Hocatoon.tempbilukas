@@ -11,10 +11,10 @@
         :root {
             --green-dark: #086B3C;
             --green-accent: #1FA84B;
-            --token-bg: #408C68;
+            --token-bg: #FFC107;
             --text-color: #000000;
             --header-dark: #2c2c2c;
-            --btn-dark: #0e8b3f; 
+            --card-bg: #FFFFFF;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,64 +25,20 @@
             min-height: 100vh;
         }
 
-        /* ШАПКА САЙТА (HEADER) */
-        header {
-            width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .header-top {
-            background: var(--header-dark); 
-            color: #FFFFFF;
-            padding: 15px 5%; 
-            display: flex;
-            justify-content: space-between; 
-            align-items: center;
-        }
-        .logo { 
-            font-family: 'Inter', sans-serif; 
-            font-size: 24px; 
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-        .profile-circle {
-            width: 36px; height: 36px; border-radius: 50%;
-            background: #D8F6E8; color: var(--green-dark);
-            font-weight: 700; display: flex; align-items: center;
-            justify-content: center; font-size: 16px;
-        }
-        .navigation-bar {
-            background: #FFFFFF; 
-            border-radius: 0 0 25px 25px;
-            padding: 12px 5%; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        .nav-links { 
-            display: flex; 
-            justify-content: space-around; 
-            list-style: none; 
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .nav-link a {
-            text-decoration: none; 
-            color: #333333; 
-            font-size: 15px;
-            font-weight: 600; 
-            padding: 5px 15px; 
-            transition: color 0.3s, border-color 0.3s;
-            border-bottom: 3px solid transparent;
-        }
-        .nav-link.active a { 
-            color: var(--green-accent); 
-            border-bottom: 3px solid var(--green-accent); 
-        }
+        /* --- СТИЛИ ШАПКИ (HEADER) - Общие --- */
+        header { width: 100%; position: sticky; top: 0; z-index: 1000; }
+        .header-top { background: var(--header-dark); color: #FFFFFF; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
+        .profile-circle { width: 36px; height: 36px; border-radius: 50%; background: #D8F6E8; color: var(--green-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .navigation-bar { background: #FFFFFF; border-radius: 0 0 25px 25px; padding: 12px 5%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .nav-links { display: flex; justify-content: space-around; list-style: none; max-width: 800px; margin: 0 auto; }
+        .nav-link a { text-decoration: none; color: #333333; font-size: 15px; font-weight: 600; padding: 5px 15px; border-bottom: 3px solid transparent; }
+        .nav-link.active a { color: var(--green-accent); border-bottom: 3px solid var(--green-accent); }
 
-        /* КОНТЕНТ КВЕСТОВ */
-        .quest-container { 
+        /* --- СТИЛИ КОНТЕНТА --- */
+        .quest-container {
             padding: 40px 5%; 
-            max-width: 1200px; 
+            max-width: 900px; 
             margin: 0 auto;
         }
         .main-title {
@@ -91,95 +47,49 @@
             color: #FFFFFF;
             margin-bottom: 30px;
         }
-        .cards-grid {
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        .quest-card {
-            background: #FFFFFF; 
-            border-radius: 20px; 
-            padding: 30px 20px;
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
-            text-align: center; 
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            position: relative; 
-            min-height: 380px;
-            transition: transform 0.3s;
-        }
-        .quest-card:hover { transform: translateY(-5px); }
 
-        .token-badge {
-            position: absolute; top: 0; right: 0; 
-            background: var(--token-bg);
-            color: #FFFFFF; 
-            padding: 8px 15px; 
-            border-radius: 0 20px 0 15px;
-            font-weight: 700; font-size: 14px;
-        }
-        .quest-icon {
-            width: 100px;
-            height: 100px;
-            margin: 20px 0 15px; 
+        .quest-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-size: 60px;
         }
-        
-        .quest-description { 
-            font-size: 18px; 
-            font-weight: 600; 
-            margin-bottom: 15px;
-            flex-grow: 1; 
+        .quest-info h3 {
+            font-size: 20px;
+            color: var(--green-dark);
+            margin-bottom: 5px;
+        }
+        .quest-info p {
+            font-size: 14px;
+            color: #555;
+        }
+        .quest-info .reward {
+            font-weight: 700;
+            color: var(--token-bg);
+        }
+
+        .action-btn {
+            background: var(--green-accent);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .action-btn:hover { background: #198754; }
+
+        .completed-btn {
+            background: #FFC107;
             color: #333;
         }
-        .progress-bar-container {
-            width: 90%; 
-            height: 10px; 
-            background: #DFEEE0;
-            border-radius: 5px; 
-            margin-bottom: 10px; 
-            overflow: hidden;
-        }
-        .progress-bar { 
-            height: 100%; 
-            background: var(--green-accent); 
-            border-radius: 5px; 
-            transition: width 0.5s;
-        }
-        .progress-text { 
-            font-size: 16px; 
-            font-weight: 600; 
-            color: var(--text-color); 
-            margin-bottom: 20px;
-        }
-        
-        .action-btn {
-            padding: 12px 25px;
-            border-radius: 25px;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-            width: 90%;
-            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-            background: var(--btn-dark); 
-            color: white;
-            font-size: 16px;
-        }
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(14, 139, 63, 0.3);
-        }
-        .action-btn.completed-btn {
-            background: var(--green-accent); 
-            box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
-            border: 2px solid #FFFFFF;
-        }
-        .action-btn.completed-btn:hover {
-            background: #1b9a3c;
+        .completed-btn:hover {
+            background: #e6b000;
         }
     </style>
 </head>
@@ -195,59 +105,51 @@
                 <li class="nav-link"><a href="index.html">Главное</a></li>
                 <li class="nav-link active"><a href="quest.html">Квест</a></li>
                 <li class="nav-link"><a href="leaderboard.html">Таблица лидеров</a></li>
+                <li class="nav-link"><a href="games.html">Игры</a></li>
+                <li class="nav-link"><a href="map.html">Карта</a></li>
+                <li class="nav-link"><a href="rewards.html">Награды</a></li>
                 <li class="nav-link"><a href="profile.html">Профиль</a></li>
+                <li class="nav-link"><a href="settings.html">Настройки</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="quest-container">
-        <h1 class="main-title">Активные Эко-Квесты</h1>
+        <h1 class="main-title">Активные Квесты 🌱</h1>
 
-        <div class="cards-grid">
-            <div class="quest-card">
-                <div class="token-badge">+50 SECO Tokens</div>
-                <div class="quest-icon">🌱</div> 
-                <div class="quest-description">Посади дерево</div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: 75%;"></div>
-                </div>
-                <div class="progress-text">75%</div>
-                <button class="action-btn completed-btn">Завершить квест!</button>
+        <div class="quest-card">
+            <div class="quest-info">
+                <h3>Посади дерево</h3>
+                <p>Требуется: фотоотчет с геотегом. <span class="reward">Награда: 50 SECO</span></p>
             </div>
-
-            <div class="quest-card">
-                <div class="token-badge">+50 SECO Tokens</div>
-                <div class="quest-icon">♻️</div>
-                <div class="quest-description">Сдай 5 кг макулатуры</div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: 30%;"></div>
-                </div>
-                <div class="progress-text">30%</div>
-                <button class="action-btn">Подробнее</button>
-            </div>
-
-            <div class="quest-card">
-                <div class="token-badge" style="background: var(--green-accent);">+100 SECO Tokens</div>
-                <div class="quest-icon">🧹</div>
-                <div class="quest-description">Участвуй в субботнике</div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: 0%;"></div>
-                </div>
-                <div class="progress-text">0%</div>
-                <button class="action-btn">Начать</button>
-            </div>
-            
-            <div class="quest-card">
-                <div class="token-badge" style="background: #a84b1f;">+20 SECO Tokens</div>
-                <div class="quest-icon">💧</div>
-                <div class="quest-description">Экономь воду 7 дней</div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: 50%;"></div>
-                </div>
-                <div class="progress-text">50%</div>
-                <button class="action-btn">Подробнее</button>
-            </div>
+            <a href="details.html" class="action-btn">Подробнее</a>
         </div>
+        
+        <div class="quest-card">
+            <div class="quest-info">
+                <h3>Сдай 1 кг пластика</h3>
+                <p>Требуется: подтверждение с пункта приема. <span class="reward">Награда: 20 SECO</span></p>
+            </div>
+            <a href="details.html" class="action-btn">Подробнее</a>
+        </div>
+        
+        <div class="quest-card">
+            <div class="quest-info">
+                <h3>Викторина "Лист или Хвоя" (Выполнено)</h3>
+                <p>Требуется: пройти викторину. <span class="reward">Награда: 45 SECO</span></p>
+            </div>
+            <a href="#" class="action-btn completed-btn">Завершено!</a>
+        </div>
+        
+        <div class="quest-card">
+            <div class="quest-info">
+                <h3>Раздельный сбор (5 дней подряд)</h3>
+                <p>Требуется: ежедневная отметка в приложении. <span class="reward">Награда: 75 SECO</span></p>
+            </div>
+            <a href="details.html" class="action-btn">Подробнее</a>
+        </div>
+
     </main>
+
 </body>
 </html>
