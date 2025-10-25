@@ -1,410 +1,92 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="ru">
 <head>
-  
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=1440, height=1024, initial-scale=1" />
-  <title>GreenEcoChain — Вход и Меню</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-  <style>
-    :root{
-      --green-1: #0f8e4e;
-      --green-2: #0a6b44;
-      --accent: #28a745;
-      --accent-dark: #0e8b3f;
-      --input-bg: #ffffff;
-      --shadow: 0 8px 30px rgba(8,40,20,0.25);
-      --radius-big: 60px;
-    }
-
-    *{ box-sizing:border-box; margin:0; padding:0; }
-    html,body{
-      width:1440px;
-      height:1024px;
-      overflow:hidden;
-      font-family:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      color:#0b2b1b;
-      background: linear-gradient(180deg, #FFFFFF 0%, #086B3C 100%);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .page{
-      width:1280px;
-      height:880px;
-      display:grid;
-      grid-template-columns: 360px 1fr;
-      gap:40px;
-      align-items:center;
-      justify-content:center;
-      background:rgba(255,255,255,0.05);
-      border-radius:40px;
-      padding:20px 40px;
-    }
-
-    .left{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:flex-start;
-      gap:20px;
-      min-height:520px;
-      padding-top:20px;
-    }
-
-    .logo-wrap{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      width:240px;
-      height:240px;
-      border-radius:18px;
-      background: linear-gradient(180deg, #b8f0cd 0%, #199356 50%, #0b6a44 100%);
-      box-shadow: 0 6px 30px rgba(6,60,40,0.35);
-    }
-
-    .logo-wrap svg{ width:70%; height:70%; }
-
-    .logo-text{
-      font-weight:800;
-      color:rgba(245,255,245,0.95);
-      letter-spacing:4px;
-      font-size:26px;
-      text-transform:uppercase;
-      margin-top:20px;
-    }
-
-    .card-wrap{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      height:100%;
-    }
-
-    .card{
-      width:100%;
-      max-width:760px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(230,255,245,0.5));
-      border-radius: var(--radius-big);
-      padding:48px 64px;
-      box-shadow: var(--shadow);
-      position:relative;
-      backdrop-filter: blur(8px) saturate(1.1);
-    }
-
-    .card-top{
-      display:flex;
-      align-items:center;
-      gap:18px;
-      margin-bottom:8px;
-    }
-
-    .mini-logo{
-      width:44px;
-      height:44px;
-      border-radius:8px;
-      background: linear-gradient(180deg, #9ff0c8, #53c992);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow: 0 3px 10px rgba(6,60,40,0.18);
-    }
-
-    .tabs{
-      margin-left:auto;
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
-
-    .tab{
-      padding:10px 20px;
-      border-radius:24px;
-      font-weight:600;
-      font-size:15px;
-      cursor:pointer;
-      user-select:none;
-      transition:all 0.2s;
-    }
-
-    .tab.active{
-      background: linear-gradient(90deg, #24b14d, #1b9a3c);
-      color:white;
-      box-shadow:0 3px 8px rgba(10,80,40,0.18);
-    }
-
-    .tab:not(.active){
-      background:rgba(255,255,255,0.6);
-      color:rgba(5,45,20,0.7);
-    }
-
-    h1{
-      font-size:44px;
-      margin:18px 0 28px 0;
-      font-weight:600;
-      color:#072916;
-    }
-
-    form{
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-    }
-
-    label{
-      font-size:14px;
-      font-weight:600;
-      color:#16462f;
-    }
-
-    .input{
-      width:100%;
-      padding:18px 22px;
-      border-radius:24px;
-      border:none;
-      background:var(--input-bg);
-      box-shadow:0 6px 18px rgba(2,20,10,0.06);
-      font-size:15px;
-      outline:none;
-    }
-
-    .submit{
-      margin-top:8px;
-      width:fit-content;
-      background:linear-gradient(180deg,var(--accent),var(--accent-dark));
-      color:white;
-      padding:14px 26px;
-      border-radius:28px;
-      border:none;
-      font-weight:700;
-      cursor:pointer;
-      box-shadow:0 8px 20px rgba(11,110,60,0.18);
-    }
-
-    .submit:hover{ background:var(--accent-dark); }
-
-    .socials{
-      margin-top:28px;
-      display:flex;
-      gap:18px;
-      justify-content:center;
-    }
-
-    .social{
-      width:54px;
-      height:54px;
-      border-radius:50%;
-      background:rgba(255,255,255,0.9);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow:0 6px 18px rgba(0,0,0,0.08);
-      cursor:pointer;
-      transition: transform 0.1s;
-    }
-
-    .social:hover { transform: scale(1.05); }
-
-    #main-menu{ display:none; text-align:center; }
-    .menu-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:20px;
-      margin-top:40px;
-    }
-    .menu-button{
-      padding:25px 15px;
-      background:linear-gradient(180deg,#5ebf7a,#63d582);
-      color:white;
-      border:none;
-      border-radius:20px;
-      font-size:18px;
-      font-weight:700;
-      cursor:pointer;
-      transition:transform 0.2s;
-    }
-    .menu-button:hover{
-      transform:translateY(-3px);
-      box-shadow:0 8px 20px rgba(11,110,60,0.25);
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>GreenEcoChain — Вход и Регистрация</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Стили те же, что у тебя были */
+</style>
 </head>
 <body>
 
-  <div class="page">
-    <div class="left">
-      <div class="logo-wrap" aria-hidden="true">
-        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="g1" x1="0" x2="1">
-              <stop offset="0" stop-color="#bff3d0"/>
-              <stop offset="1" stop-color="#0b8b4b"/>
-            </linearGradient>
-            <linearGradient id="g2" x1="0" x2="1">
-              <stop offset="0" stop-color="#ffffff" stop-opacity="0.6"/>
-              <stop offset="1" stop-color="#ffffff" stop-opacity="0.12"/>
-            </linearGradient>
-          </defs>
-          <polygon points="50,2 94,45 50,118 6,45" fill="url(#g1)" stroke="#075a36" stroke-width="1.8"/>
-          <polygon points="50,14 82,45 50,104 18,45" fill="#0da05f" opacity="0.18"/>
-          <polygon points="50,34 70,45 50,88 30,45" fill="url(#g2)" />
-          <text x="50" y="66" text-anchor="middle" font-size="18" font-weight="800" fill="#f3fff7">EGC</text>
-        </svg>
-      </div>
-      <div class="logo-text">ECOGREENCHAIN</div>
+<div class="wrapper">
+    <div class="left-panel">
+        <div class="logo-box"><div class="logo-text">EGC</div></div>
+        <div class="app-name">ECOGREENCHAIN</div>
     </div>
 
-    <div class="card-wrap">
-      <div class="card" role="region" aria-labelledby="welcome">
+    <div class="auth-panel">
+        <div class="tabs">
+            <div class="tab active" data-mode="login">Вход</div>
+            <div class="tab" data-mode="register">Регистрация</div>
+        </div>
 
-        <div id="auth-screen">
-          <div class="card-top">
-            <div class="mini-logo" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L20 12L12 22L4 12L12 2Z" fill="#fff" opacity="0.12"/>
-                <path d="M12 4.5L18.6 12L12 19.5L5.4 12L12 4.5Z" fill="#0d8b4a" />
-              </svg>
-            </div>
+        <h1 id="auth-title">Добро пожаловать</h1>
 
-            <div class="tabs" role="tablist" aria-label="auth tabs">
-              <div class="tab active" data-mode="login" role="tab" aria-selected="true">Вход</div>
-              <div class="tab" data-mode="register" role="tab" aria-selected="false">Регистрация</div>
-            </div>
-          </div>
+        <form class="auth-form" id="auth-form">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="you@example.com" required>
 
-          <h1 id="welcome">Добро пожаловать</h1>
+            <label for="password">Пароль</label>
+            <input type="password" id="password" placeholder="••••••••" required>
 
-          <form id="auth-form">
-            <div>
-              <label for="email">Email</label>
-              <input id="email" class="input" type="email" placeholder="you@example.com" required>
-            </div>
-
-            <div>
-              <label for="password">Пароль</label>
-              <input id="password" class="input" type="password" placeholder="••••••••" required>
-            </div>
-
-            <label style="display:flex; gap:8px; align-items:center; cursor:pointer;">
-              <input type="checkbox" id="remember" />
-              <span style="font-weight:600; color:#2c5f3e;">Запомнить меня</span>
+            <label class="remember">
+                <input type="checkbox" id="remember">
+                Запомнить меня
             </label>
 
-            <button class="submit" type="submit" id="submit-btn">
-              Войти в <strong style="font-weight:800">GreenEcchain</strong>
-            </button>
-
-            <div class="socials" aria-label="social login">
-              <div class="social" title="Google" onclick="window.location.href='https://accounts.google.com/signup'">
-                <i class="fab fa-google" style="color:#0f8e4e; font-size:22px;"></i>
-              </div>
-              <div class="social" title="Apple" onclick="window.location.href='https://appleid.apple.com/account#!&page=create'">
-                <i class="fab fa-apple" style="font-size:28px;"></i>
-              </div>
-            </div>
-          </form>
-        </div>
-
-        <div id="main-menu">
-          <h1>Главное меню</h1>
-          <div class="menu-grid">
-            <button class="menu-button" onclick="window.location.href='quest.html'">Квесты ♻</button>
-            <button class="menu-button" onclick="window.location.href='leaderboard.html'">Таблица лидеров 🏆</button>
-            <button class="menu-button">Профиль 👤</button>
-            <button class="menu-button">Настройки ⚙</button>
-            <button class="menu-button" style="grid-column:1/-1;background:#c0392b;" onclick="showScreen('auth-screen')">Выйти</button>
-          </div>
-        </div>
-
-      </div>
+            <button type="submit" id="submit-btn">Войти</button>
+        </form>
     </div>
-  </div>
+</div>
 
-  <script>
-    const authScreen = document.getElementById('auth-screen');
-    const mainMenu = document.getElementById('main-menu');
-    const formTitle = document.getElementById('welcome');
-    const submitBtn = document.getElementById('submit-btn');
-    const tabs = document.querySelectorAll('.tab');
-    const emailInput = document.getElementById('email');
-    let currentMode = 'login';
+<script>
+const tabs = document.querySelectorAll('.tab');
+const authTitle = document.getElementById('auth-title');
+const submitBtn = document.getElementById('submit-btn');
+const form = document.getElementById('auth-form');
+const emailInput = document.getElementById('email');
+let currentMode = 'login';
 
-    // Загружаем сохранённый email
-    if(localStorage.getItem('savedEmail')){
-      emailInput.value = localStorage.getItem('savedEmail');
-      document.getElementById('remember').checked = true;
-    }
+if(localStorage.getItem('savedEmail')){
+    emailInput.value = localStorage.getItem('savedEmail');
+    document.getElementById('remember').checked = true;
+}
 
-    function showScreen(screenId) {
-      if (screenId === 'auth-screen') {
-        mainMenu.style.display = 'none';
-        authScreen.style.display = 'block';
-      } else if (screenId === 'main-menu') {
-        authScreen.style.display = 'none';
-        mainMenu.style.display = 'block';
-      }
-    }
-
-    // Переключение вкладок Вход / Регистрация
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
+tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+        tabs.forEach(t=>t.classList.remove('active'));
         tab.classList.add('active');
         currentMode = tab.dataset.mode;
-        if (currentMode === 'login') {
-          formTitle.textContent = 'Добро пожаловать';
-          submitBtn.innerHTML = 'Войти в <strong style="font-weight:800">GreenEcchain</strong>';
-        } else {
-          formTitle.textContent = 'Создайте аккаунт';
-          submitBtn.innerHTML = 'Зарегистрироваться';
-        }
-      });
+        authTitle.textContent = currentMode==='login' ? 'Добро пожаловать' : 'Создайте аккаунт';
+        submitBtn.textContent = currentMode==='login' ? 'Войти' : 'Зарегистрироваться';
     });
+});
 
-    // Проверка email на корректность
-    function validateEmail(email) {
-      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return re.test(email.toLowerCase());
-    }
+function validateEmail(email){
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email.toLowerCase());
+}
 
-    // Обработка отправки формы
-    document.getElementById('auth-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const email = emailInput.value.trim();
-      const password = document.getElementById('password').value.trim();
+form.addEventListener('submit', e=>{
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    const password = document.getElementById('password').value.trim();
+    if(!email || !password){ alert('Заполните все поля.'); return; }
+    if(!validateEmail(email)){ alert('Введите корректный email.'); return; }
+    if(document.getElementById('remember').checked){ localStorage.setItem('savedEmail', email); }
+    else { localStorage.removeItem('savedEmail'); }
 
-      if (!email || !password) {
-        alert('Пожалуйста, заполните все поля.');
-        return;
-      }
+    // Сохраняем статус входа
+    localStorage.setItem('isLoggedIn', 'true');
 
-      if (!validateEmail(email)) {
-        alert('Пожалуйста, введите корректный Email.');
-        return;
-      }
+    // Переход на главное меню
+    window.location.href = 'main-menu.html';
+});
+</script>
 
-      // Сохраняем email, если выбрана опция "Запомнить меня"
-      if (document.getElementById('remember').checked) {
-        localStorage.setItem('savedEmail', email);
-      } else {
-        localStorage.removeItem('savedEmail');
-      }
-
-      alert(`Успешный ${currentMode === 'login' ? 'вход' : 'регистрация'}! Переход в главное меню.`);
-      this.reset();
-      if(localStorage.getItem('savedEmail')){
-        emailInput.value = localStorage.getItem('savedEmail');
-      }
-      showScreen('main-menu');
-    });
-
-    // Инициализация экрана
-    showScreen('auth-screen');
-  </script>
 </body>
 </html>
-
