@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>EcoGreenChain - Вход</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    
+    <style>
+        /* CSS-стили для страницы входа */
+        :root {
+            --green-dark: #086B3C;
+            --btn-green: #4CAF50;
+            --btn-red: #E53935;
+            --text-color: #333;
+            /* Градиент с лендинга, чтобы фон соответствовал общему стилю */
+            --green-gradient-bg: linear-gradient(180deg, #4CAF50 0%, #00796B 100%); 
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: var(--green-gradient-bg); /* Фон как на лендинге */
+        }
+
+        .login-container {
+            max-width: 400px;
+            width: 100%;
+            padding: 30px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .login-container h1 {
+            color: var(--green-dark);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .login-button-primary, .google-login-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 10px;
+        }
+        .login-button-primary {
+            background: var(--btn-green);
+            color: #fff;
+        }
+        .google-login-button {
+            background: #db4437; /* Цвет Google */
+            color: #fff;
+        }
+        .login-button-primary:hover { background: #388E3C; }
+        .google-login-button:hover { background: #c33d31; }
+
+        #display-error-message {
+            color: var(--btn-red);
+            text-align: center;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+    </style>
+
+    <script>
+        // JS-логика для инициализации Firebase
+        
+        // !!! ЗАМЕНИТЕ ЭТИ ДАННЫЕ СВОИМИ ДАННЫМИ ПРОЕКТА FIREBASE !!!
+        const firebaseConfig = {
+            apiKey: "YOUR_FIREBASE_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            // ... остальные настройки
+        };
+
+        // Инициализация
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+        // Вспомогательная функция для вывода ошибок
+        const displayError = (message) => {
+            const errorElement = document.getElementById('display-error-message');
+            errorElement.textContent = message;
+        };
+
+        // Переход на страницу меню после входа
+        const navigateToMainMenu = () => {
+            // ВАЖНО: Перенаправляем на index.html (Главное меню)
+            window.location.href = 'index.html'; 
+        };
+    </script>
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>Вход</h1>
+        
+        <form id="authForm">
+            <input type="email" id="email" placeholder="Логин (Email)" required>
+            <input type="password" id="password" placeholder="Пароль" required>
+            <button type="submit" class="login-button-primary">Войти</button>
+        </form>
+
+        <p style="text-align: center; margin: 15px 0;">или</p>
+
+        <button onclick="signInWithGoogle()" class="google-login-button">
+            Войти через Google 
+        </button>
+
+        <p id="display-error-message"></p>
+    </div>
+
+    <script type="module">
+        // ===============================================
+        // JS-КОД С ВАШЕГО СКРИНШОТА (image_cad247.jpg)
+        // ===============================================
+        
+        const authForm = document.getElementById('authForm');
+
+        if (authForm) {
+            // Обработчик входа по логину/паролю
+            authForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); 
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                try {
+                    await auth.signInWithEmailAndPassword(email, password);
+                    displayError('');
+                    navigateToMainMenu(); // Успешный вход
+
+                } catch (error) {
+                    let message = 'Ошибка: ' + error.message;
+                    switch (error.code) {
+                        case 'auth/wrong-password':
+                            message = 'Неверный логин или пароль.';
+                            break;
+                        default:
+                            break;
+                    }
+                    displayError(message);
+                }
+            });
+        }
+        
+        // Функция для входа через Google
+        window.signInWithGoogle = async function() {
+            const provider = googleProvider; 
+            displayError('Подождите...');
+
+            try {
+                // await auth.signInWithPopup(auth, provider); // Исправлено: в v8, auth — это экспортируемый объект
+                await auth.signInWithPopup(provider); 
+                // await createGridsterUser(result.user); // Заглушка
+                
+                navigateToMainMenu(); 
+
+            } catch (error) {
+                console.error('Ошибка входа через Google:', error);
+                
+                let errorMessage = 'Ошибка входа через Google. Попробуйте снова.';
+                if (error.code === 'auth/popup-closed-by-user') {
+                    errorMessage = 'Окно входа было закрыто.';
+                }
+                displayError(errorMessage);
+            }
+        };
+    </script>
+
+</body>
+</html>
