@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О EcoGreenChain</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        /* Общие стили для тела страницы */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif; /* Основной шрифт для описания */
+            color: #ffffff; /* Белый цвет текста по умолчанию */
+            text-align: center; /* Центрирование всего содержимого */
+            min-height: 100vh; /* Высота на весь экран */
+            display: flex; /* Flexbox для центрирования содержимого */
+            justify-content: center; /* Центрирование по горизонтали */
+            align-items: center; /* Центрирование по вертикали */
+            
+            /* Градиентный фон, максимально соответствующий изображению */
+            background: linear-gradient(180deg, #4CAF50 0%, #00796B 100%);
+        }
+
+        /* Контейнер для центрирования и ограничения ширины контента */
+        .content-wrapper {
+            max-width: 800px; /* Ограничиваем ширину контента */
+            padding: 20px;
+            box-sizing: border-box; /* Учитываем padding в ширине */
+        }
+
+        /* Стили для логотипа (SVG) */
+        .logo-container {
+            width: 100px; /* Размер логотипа */
+            height: 100px;
+            margin: 0 auto 20px; /* Центрируем и добавляем отступ снизу */
+        }
+
+        .logo-icon {
+            width: 100%;
+            height: 100%;
+            /* Цвета для частей SVG-логотипа, имитирующего Ethereum-подобный символ */
+            /* #69F0AE - светло-зеленый, #00E676 - средний зеленый, #00C853 - более темный зеленый для обводки */
+        }
+
+        /* Стили для заголовка "EcoGreenChain" */
+        .main-title {
+            font-family: 'Montserrat', sans-serif; /* Шрифт как на картинке */
+            font-size: 4em; /* Размер шрифта */
+            font-weight: 800; /* Очень жирный шрифт */
+            color: #000000; /* Черный цвет */
+            margin-bottom: 30px; /* Отступ снизу */
+            line-height: 1.2; /* Межстрочный интервал */
+        }
+
+        /* Стили для описательного текста */
+        .description-text {
+            font-size: 1.5em; /* Размер шрифта */
+            line-height: 1.6; /* Межстрочный интервал для лучшей читаемости */
+            font-weight: 400; /* Обычная толщина шрифта */
+            margin-bottom: 50px; /* Отступ снизу */
+            padding: 0 5%; /* Небольшие отступы по бокам */
+        }
+
+        /* Стили для кнопки "Войти" */
+        .action-button {
+            display: inline-block; /* Отображаем как строчный блок */
+            padding: 15px 40px; /* Внутренние отступы */
+            /* Градиентный фон кнопки, соответствующий изображению */
+            background: linear-gradient(180deg, #66BB6A 0%, #00A350 100%); 
+            color: #ffffff; /* Белый цвет текста кнопки */
+            text-decoration: none; /* Убираем подчеркивание ссылки */
+            font-size: 1.2em; /* Размер шрифта кнопки */
+            font-weight: 700; /* Жирный шрифт */
+            border-radius: 50px; /* Очень скругленные края (форма пилюли) */
+            border: none; /* Убираем рамку */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Небольшая тень для объема */
+            transition: transform 0.2s, box-shadow 0.2s; /* Плавные переходы для интерактивности */
+            cursor: pointer; /* Курсор-указатель */
+        }
+
+        .action-button:hover {
+            /* Эффекты при наведении мыши */
+            background: linear-gradient(180deg, #81C784 0%, #388E3C 100%); /* Изменение градиента */
+            transform: translateY(-2px); /* Кнопка немного приподнимается */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Тень становится более выраженной */
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        
+        <div class="logo-container">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="logo-icon">
+                <polygon points="50,0 75,50 50,65 25,50" fill="#69F0AE"/> 
+                <polygon points="50,65 75,50 50,100 25,50" fill="#00E676"/> 
+                <polygon points="50,0 75,50 50,65 25,50" fill="none" stroke="#00C853" stroke-width="2"/>
+                <polygon points="50,65 75,50 50,100 25,50" fill="none" stroke="#00C853" stroke-width="2"/>
+            </svg>
+        </div>
+        
+        <h1 class="main-title">EcoGreenChain</h1>
+        
+        <p class="description-text">
+            Этот сайт для поддерживания экологии за выполнение задания дается токены которые можно обменять на криптовалюты
+        </p>
+        
+        <a href="#" class="action-button">Войти</a>
+        
+    </div>
+</body>
+</html>
