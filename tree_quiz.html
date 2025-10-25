@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GreenEcoChain - Викторина</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --green-dark: #086B3C;
+            --green-accent: #1FA84B;
+            --header-dark: #2c2c2c;
+            --card-bg: #FFFFFF;
+            --btn-select: #f0f0f0;
+            --btn-correct: #28a745;
+            --btn-wrong: #dc3545;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #FFFFFF 0%, var(--green-dark) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        /* --- СТИЛИ ШАПКИ (HEADER) - Общие --- */
+        header { width: 100%; position: sticky; top: 0; z-index: 1000; }
+        .header-top { background: var(--header-dark); color: #FFFFFF; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
+        .profile-circle { width: 36px; height: 36px; border-radius: 50%; background: #D8F6E8; color: var(--green-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .navigation-bar { background: #FFFFFF; border-radius: 0 0 25px 25px; padding: 12px 5%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .nav-links { display: flex; justify-content: space-around; list-style: none; max-width: 800px; margin: 0 auto; }
+        .nav-link a { text-decoration: none; color: #333333; font-size: 15px; font-weight: 600; padding: 5px 15px; border-bottom: 3px solid transparent; }
+        .nav-link.active a { color: var(--green-accent); border-bottom: 3px solid var(--green-accent); }
+        
+        /* --- СТИЛИ ВИКТОРИНЫ --- */
+        .quiz-container {
+            padding: 40px 5%; 
+            max-width: 700px; 
+            margin: 0 auto;
+        }
+        .main-title {
+            font-size: 44px; 
+            font-weight: 800; 
+            color: #FFFFFF;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .quiz-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .question-number {
+            font-size: 18px;
+            color: #555;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 30px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-btn {
+            width: 100%;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background: var(--btn-select);
+            text-align: left;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            background: #e9e9e9;
+            border-color: var(--green-accent);
+        }
+        
+        .option-btn.correct {
+            background-color: var(--btn-correct);
+            color: white;
+            border-color: var(--btn-correct);
+        }
+        
+        .option-btn.wrong {
+            background-color: var(--btn-wrong);
+            color: white;
+            border-color: var(--btn-wrong);
+        }
+        
+        .next-btn {
+            width: 100%;
+            padding: 15px;
+            background: #1E88E5;
+            color: white;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <div class="logo">ECOCHAIN</div>
+            <div class="profile-circle">А</div>
+        </div>
+        <nav class="navigation-bar">
+            <ul class="nav-links">
+                <li class="nav-link"><a href="index.html">Главное</a></li>
+                <li class="nav-link"><a href="quest.html">Квест</a></li>
+                <li class="nav-link"><a href="leaderboard.html">Таблица лидеров</a></li>
+                <li class="nav-link active"><a href="games.html">Игры</a></li>
+                <li class="nav-link"><a href="profile.html">Профиль</a></li>
+                <li class="nav-link"><a href="settings.html">Настройки</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="quiz-container">
+        <h1 class="main-title">Викторина про Деревья</h1>
+
+        <div class="quiz-card">
+            <div class="question-number">Вопрос 1 из 5</div>
+            <div class="question-text">Какое из этих деревьев является хвойным?</div>
+            
+            <ul class="options-list">
+                <li><button class="option-btn" id="option1">Дуб</button></li>
+                <li><button class="option-btn correct" id="option2">Ель</button></li>
+                <li><button class="option-btn" id="option3">Клен</button></li>
+                <li><button class="option-btn" id="option4">Береза</button></li>
+            </ul>
+            
+            <button class="next-btn" onclick="alert('Переход к следующему вопросу или результатам!');">Следующий вопрос</button>
+        </div>
+        
+    </main>
+    
+    <script>
+        // Простой скрипт для демонстрации выбора ответа
+        const options = document.querySelectorAll('.option-btn');
+
+        options.forEach(button => {
+            button.addEventListener('click', function() {
+                // Если ответ уже был выбран, не делаем ничего
+                if (document.querySelector('.option-btn.correct, .option-btn.wrong')) return;
+                
+                // Проверяем, правильный ли это ответ
+                if (this.classList.contains('correct')) {
+                    this.classList.add('correct');
+                    alert('Верно! Вы получаете 5 SECO Tokens.');
+                } else {
+                    this.classList.add('wrong');
+                    // Показываем правильный ответ
+                    document.querySelector('.option-btn.correct').classList.add('correct');
+                    alert('Ошибка. Попробуйте снова! Правильный ответ - Ель.');
+                }
+                
+                // Деактивируем все кнопки после выбора
+                options.forEach(btn => btn.classList.add('disabled'));
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GreenEcoChain - Детали квеста</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --green-dark: #086B3C;
+            --green-accent: #1FA84B;
+            --text-color: #000000;
+            --header-dark: #2c2c2c;
+            --card-bg: #FFFFFF;
+            --btn-complete: #28a745; /* Зеленый для завершения */
+            --btn-edit: #ffc107; /* Желтый для редактирования/загрузки */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #FFFFFF 0%, var(--green-dark) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        /* --- СТИЛИ ШАПКИ (HEADER) - Упрощенная для страниц деталей --- */
+        header { width: 100%; padding: 15px 5%; background: var(--header-dark); color: #FFFFFF; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; max-width: 900px; margin: 0 auto; }
+        .logo a { color: #FFFFFF; text-decoration: none; font-size: 24px; font-weight: 800; letter-spacing: 1px; }
+
+        /* --- СТИЛИ КОНТЕНТА --- */
+        .details-container {
+            padding: 40px 5%; 
+            max-width: 900px; 
+            margin: 0 auto;
+        }
+        .main-title {
+            font-size: 36px; 
+            font-weight: 800; 
+            color: #FFFFFF;
+            margin-bottom: 20px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #D8F6E8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-link:hover { text-decoration: underline; }
+
+        .quest-detail-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            line-height: 1.6;
+        }
+
+        .quest-detail-card h2 {
+            font-size: 28px;
+            color: var(--green-dark);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .quest-info {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .quest-info strong {
+            color: var(--green-accent);
+            font-weight: 700;
+        }
+
+        .progress-section {
+            padding: 20px;
+            background: #F0FFF0;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+        .progress-bar-container {
+            width: 100%; 
+            height: 20px; 
+            background: #DFEEE0;
+            border-radius: 10px; 
+            margin: 10px 0; 
+            overflow: hidden;
+        }
+        .progress-bar { 
+            height: 100%; 
+            background: var(--green-accent); 
+            border-radius: 10px; 
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            color: white;
+            padding-right: 10px;
+            font-weight: 700;
+        }
+
+        .action-buttons button {
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 15px;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .complete-btn {
+            background: var(--btn-complete);
+            color: white;
+        }
+        .upload-btn {
+            background: var(--btn-edit);
+            color: #333;
+        }
+        .action-buttons button:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div class="logo"><a href="index.html">ECOCHAIN</a></div>
+            <div class="profile-circle">А</div>
+        </div>
+    </header>
+
+    <main class="details-container">
+        <a href="quest.html" class="back-link">← Вернуться к списку квестов</a>
+        <h1 class="main-title">Подробности квеста</h1>
+
+        <div class="quest-detail-card">
+            <h2>🌱 Посади дерево</h2>
+            <p class="quest-info">
+                <strong>Награда:</strong> 50 SECO Tokens<br>
+                <strong>Срок:</strong> До 30.11.2025<br>
+                <strong>Место:</strong> Любой парк или придомовая территория (требуется фотоотчет).
+            </p>
+
+            <div class="progress-section">
+                <h3>Ваш прогресс:</h3>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 75%;">75%</div>
+                </div>
+                <p>Отличная работа! Осталось сделать еще один шаг, чтобы завершить этот важный вклад в природу.</p>
+            </div>
+            
+            <h3>Инструкции:</h3>
+            <ol>
+                <li>Выберите подходящее место и вид дерева.</li>
+                <li>Сделайте фотографию процесса посадки.</li>
+                <li>Загрузите фото ниже для проверки.</li>
+            </ol>
+
+            <div class="action-buttons">
+                <button class="upload-btn">Загрузить фотоотчет</button>
+                <button class="complete-btn">Завершить и получить токены</button>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

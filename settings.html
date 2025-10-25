@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GreenEcoChain - Настройки</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --green-dark: #086B3C;
+            --green-accent: #1FA84B;
+            --text-color: #000000;
+            --header-dark: #2c2c2c;
+            --card-bg: #FFFFFF;
+            --btn-save: #1E88E5; /* Синяя кнопка для сохранения */
+            --input-border: #CCCCCC;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #FFFFFF 0%, var(--green-dark) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        /* --- СТИЛИ ШАПКИ (HEADER) - Общие --- */
+        header { width: 100%; position: sticky; top: 0; z-index: 1000; }
+        .header-top { background: var(--header-dark); color: #FFFFFF; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
+        .profile-circle { width: 36px; height: 36px; border-radius: 50%; background: #D8F6E8; color: var(--green-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .navigation-bar { background: #FFFFFF; border-radius: 0 0 25px 25px; padding: 12px 5%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .nav-links { display: flex; justify-content: space-around; list-style: none; max-width: 800px; margin: 0 auto; }
+        .nav-link a { text-decoration: none; color: #333333; font-size: 15px; font-weight: 600; padding: 5px 15px; border-bottom: 3px solid transparent; }
+        .nav-link.active a { color: var(--green-accent); border-bottom: 3px solid var(--green-accent); }
+
+        /* --- СТИЛИ КОНТЕНТА --- */
+        .settings-container {
+            padding: 40px 5%; 
+            max-width: 700px; 
+            margin: 0 auto;
+        }
+        .main-title {
+            font-size: 44px; 
+            font-weight: 800; 
+            color: #FFFFFF;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .settings-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .setting-group {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #EEE;
+        }
+        .setting-group:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .setting-group h2 {
+            font-size: 22px;
+            color: var(--green-dark);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .input-field {
+            margin-bottom: 15px;
+        }
+
+        .input-field label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .input-field input[type="text"],
+        .input-field input[type="email"],
+        .input-field select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-field input:focus,
+        .input-field select:focus {
+            border-color: var(--green-accent);
+            box-shadow: 0 0 0 3px rgba(31, 168, 75, 0.2);
+            outline: none;
+        }
+        
+        .save-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            background: var(--btn-save);
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            margin-top: 30px;
+        }
+        .save-btn:hover {
+            background: #1565C0;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <div class="logo">ECOCHAIN</div>
+            <div class="profile-circle">А</div>
+        </div>
+        <nav class="navigation-bar">
+            <ul class="nav-links">
+                <li class="nav-link"><a href="index.html">Главное</a></li>
+                <li class="nav-link"><a href="quest.html">Квест</a></li>
+                <li class="nav-link"><a href="leaderboard.html">Таблица лидеров</a></li>
+                <li class="nav-link"><a href="profile.html">Профиль</a></li>
+                <li class="nav-link active"><a href="settings.html">Настройки</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="settings-container">
+        <h1 class="main-title">Настройки Профиля</h1>
+
+        <div class="settings-card">
+            <form>
+                <div class="setting-group">
+                    <h2>Личные данные</h2>
+                    <div class="input-field">
+                        <label for="name">Имя пользователя</label>
+                        <input type="text" id="name" value="Алексей Смирнов">
+                    </div>
+                    <div class="input-field">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" value="alexei.s@example.com">
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <h2>Уведомления</h2>
+                    <div class="input-field">
+                        <label for="notifications">Получать уведомления о новых квестах</label>
+                        <select id="notifications">
+                            <option value="yes">Да</option>
+                            <option value="no">Нет</option>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <label for="language">Язык</label>
+                        <select id="language">
+                            <option value="ru">Русский</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="save-btn">Сохранить изменения</button>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>
