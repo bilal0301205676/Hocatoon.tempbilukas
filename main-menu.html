@@ -136,12 +136,12 @@
         .menu-btn.wallet-button:hover {
             box-shadow: 0 6px 15px rgba(255, 193, 7, 0.7);
         }
-        /* --------------------------- */
+       
         
         .menu-btn.games-button {
             background: #FFC107; 
             color: #333;
-            grid-column: span 2; 
+            grid-column: span 1; 
             box-shadow: 0 4px 10px rgba(255, 193, 7, 0.5);
         }
         .menu-btn.map-rewards-button {
@@ -176,7 +176,7 @@
             .menu-grid {
                 grid-template-columns: 1fr;
             }
-            .menu-btn.games-button, .logout-btn, .menu-btn.wallet-button {
+            .menu-btn.games-button, .menu-btn.wallet-button, .logout-btn {
                 grid-column: span 1;
             }
         }
@@ -194,20 +194,15 @@
 
         <div class="menu-panel">
             <h1 class="menu-title">Главное меню</h1>
-
             <div class="menu-grid">
                 <a href="wallet.html" class="menu-btn wallet-button">Кошелек 💰</a>
-                
                 <a href="quest.html" class="menu-btn">Квесты 🌱</a>
                 <a href="leaderboard.html" class="menu-btn">Таблица лидеров 🏆</a>
                 <a href="profile.html" class="menu-btn">Профиль 👤</a>
                 <a href="settings.html" class="menu-btn">Настройки ⚙</a>
-                
-                <a href="games.html" class="menu-btn games-button">Игры про деревья 🌲</a> 
-
+                <a href="games.html" class="menu-btn games-button">Игры про деревья 🌲</a>
                 <a href="map.html" class="menu-btn map-rewards-button">Карта пунктов 🗺</a>
                 <a href="rewards.html" class="menu-btn map-rewards-button">Награды (Магазин) 🎁</a>
-                
                 <a href="#" class="logout-btn">Выйти</a>
             </div>
         </div>
