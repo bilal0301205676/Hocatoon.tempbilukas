@@ -25,7 +25,6 @@
             min-height: 100vh;
         }
 
-        /* --- СТИЛИ ШАПКИ (HEADER) - Общие --- */
         header { width: 100%; position: sticky; top: 0; z-index: 1000; }
         .header-top { background: var(--header-dark); color: #FFFFFF; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
@@ -35,10 +34,9 @@
         .nav-link a { text-decoration: none; color: #333333; font-size: 15px; font-weight: 600; padding: 5px 15px; border-bottom: 3px solid transparent; }
         .nav-link.active a { color: var(--green-accent); border-bottom: 3px solid var(--green-accent); }
 
-        /* --- СТИЛИ КОНТЕНТА --- */
         .leaderboard-container {
             padding: 40px 5%; 
-            max-width: 800px; 
+            max-width: 900px; 
             margin: 0 auto;
         }
         .main-title {
@@ -54,6 +52,8 @@
             border-radius: 20px;
             padding: 20px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            max-height: 600px;
+            overflow-y: auto;
         }
 
         .leader-table {
@@ -70,31 +70,19 @@
             color: var(--green-dark);
             font-size: 16px;
             font-weight: 700;
+            position: sticky;
+            top: 0;
+            z-index: 1;
         }
 
-        .rank-1 {
-            background: #FFD700; /* Золото */
-            font-weight: 800;
-        }
-        .rank-2 {
-            background: #C0C0C0; /* Серебро */
-        }
-        .rank-3 {
-            background: #CD7F32; /* Бронза */
-        }
-        .leader-table tr:nth-child(even):not(.rank-1):not(.rank-2):not(.rank-3) {
-            background-color: #fcfcfc;
-        }
-        
-        .user-row {
-            background-color: #D8F6E8 !important; /* Выделение своей строки */
-            font-weight: 700;
-        }
-        
-        .score {
-            font-weight: 800;
-            color: var(--green-accent);
-        }
+        .rank-1 { background: #FFD700; font-weight: 800; }
+        .rank-2 { background: #C0C0C0; }
+        .rank-3 { background: #CD7F32; }
+        .leader-table tr:nth-child(even):not(.rank-1):not(.rank-2):not(.rank-3) { background-color: #fcfcfc; }
+
+        .user-row { background-color: #D8F6E8 !important; font-weight: 700; }
+        .score { font-weight: 800; color: var(--green-accent); }
+        .reward { font-weight: 700; color: #373737; }
     </style>
 </head>
 <body>
@@ -128,48 +116,45 @@
                         <th>Место</th>
                         <th>Пользователь</th>
                         <th style="text-align: right;">Очки (SECO)</th>
+                        <th style="text-align: right;">Вознаграждение</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="rank-1">
-                        <td>🥇</td>
-                        <td>Екатерина Л.</td>
-                        <td style="text-align: right;" class="score">3240</td>
-                    </tr>
-                    <tr class="rank-2">
-                        <td>🥈</td>
-                        <td>Иван П.</td>
-                        <td style="text-align: right;" class="score">2890</td>
-                    </tr>
-                    <tr class="rank-3">
-                        <td>🥉</td>
-                        <td>Марина В.</td>
-                        <td style="text-align: right;" class="score">2510</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Сергей К.</td>
-                        <td style="text-align: right;" class="score">2100</td>
-                    </tr>
-                    <tr class="user-row">
-                        <td>5</td>
-                        <td>Алексей С. (Вы)</td>
-                        <td style="text-align: right;" class="score">1950</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Ольга Н.</td>
-                        <td style="text-align: right;" class="score">1870</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>Дмитрий Ч.</td>
-                        <td style="text-align: right;" class="score">1500</td>
-                    </tr>
+                <tbody id="leaderboard-body">
+                    <!-- Строки будут добавлены JS -->
                 </tbody>
             </table>
         </div>
     </main>
+
+    <script>
+        const tbody = document.getElementById('leaderboard-body');
+        for(let i=1; i<=100; i++){
+            let tr = document.createElement('tr');
+            // Делаем первые 3 медали
+            if(i===1) tr.classList.add('rank-1');
+            else if(i===2) tr.classList.add('rank-2');
+            else if(i===3) tr.classList.add('rank-3');
+            // Выделим пользователя (например, 5)
+            if(i===5) tr.classList.add('user-row');
+
+            let name = `Пользователь ${i}`;
+            if(i===5) name += " (Вы)";
+
+            // Добавляем вознаграждение только для топ-3
+            let reward = '';
+            if(i===1) reward = '500 SECO';
+            else if(i===2) reward = '300 SECO';
+            else if(i===3) reward = '200 SECO';
+
+            tr.innerHTML = `
+                <td>${i<=3?i===1?'🥇':i===2?'🥈':'🥉':i}</td>
+                <td>${name}</td>
+                <td style="text-align:right;" class="score">${(1000-i*5)}</td>
+                <td style="text-align:right;" class="reward">${reward}</td>
+            `;
+            tbody.appendChild(tr);
+        }
+    </script>
 
 </body>
 </html>

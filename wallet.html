@@ -16,7 +16,7 @@
             --header-dark: #2c2c2c;
             --card-bg: #FFFFFF;
             --trans-receive: #00C853; 
-            --trans-send: #FF3D00;   
+            --trans-send: #FF3D00;   
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -204,8 +204,7 @@
         </div>
         <nav class="navigation-bar">
             <ul class="nav-links">
-                <li class="nav-link"><a href="index.html">Главное</a></li>
-                <li class="nav-link active"><a href="wallet.html">Кошелек</a></li>
+                <li class="nav-link"><a href="main-menu.html">Главное</a></li> <li class="nav-link active"><a href="wallet.html">Кошелек</a></li>
                 <li class="nav-link"><a href="quest.html">Квест</a></li>
                 <li class="nav-link"><a href="leaderboard.html">Лидеры</a></li>
                 <li class="nav-link"><a href="games.html">Игры</a></li>
@@ -222,7 +221,7 @@
 
         <div class="balance-card">
             <h2>Текущий баланс токенов:</h2>
-            <strong>1950 SECO</strong>
+            <strong id="current-balance">1950 SECO</strong>
             <div class="wallet-address">
                 Адрес: 0xEcO2fA89D342B7C0...3e4Bb1A
             </div>
@@ -267,7 +266,7 @@
         <h2>Отправка (Вывод) SECO Токенов</h2>
         <form onsubmit="handleSend(event)">
           <input type="text" id="recipient-address" placeholder="Адрес кошелька получателя (0x...)" required>
-          <input type="number" id="send-amount" placeholder="Сумма SECO для вывода (Макс: 1950)" min="1" max="1950" required>
+          <input type="number" id="send-amount" placeholder="Сумма SECO для вывода (Макс: 1950)" min="1" required>
           <button type="submit" class="send-btn">Подтвердить отправку</button>
           <small style="display: block; text-align: center; color: #555; margin-top: 10px;">
             Имитация блокчейн-транзакции.
@@ -277,6 +276,21 @@
     </div>
     
     <script>
+        // ГЛОБАЛЬНАЯ ПЕРЕМЕННАЯ ДЛЯ ОТСЛЕЖИВАНИЯ БАЛАНСА
+        let balance = 1950;
+        const balanceElement = document.getElementById('current-balance');
+        
+        // Обновляет текст баланса на странице
+        function updateBalance() {
+            balanceElement.innerText = `${balance} SECO`;
+            // Также обновляем максимальное значение в поле ввода модального окна
+            document.getElementById('send-amount').setAttribute('max', balance);
+            document.getElementById('send-amount').setAttribute('placeholder', `Сумма SECO для вывода (Макс: ${balance})`);
+        }
+        
+        // Вызов при загрузке страницы
+        updateBalance(); 
+
         const modal = document.getElementById("send-modal");
         const btn = document.getElementById("send-btn");
         const span = document.getElementsByClassName("close-btn")[0];
@@ -299,13 +313,29 @@
             event.preventDefault();
             const address = document.getElementById('recipient-address').value;
             const amount = document.getElementById('send-amount').value;
+            const amountNumber = parseInt(amount); // Преобразуем в число для расчетов
+            
+            if (isNaN(amountNumber) || amountNumber <= 0) {
+                alert("Пожалуйста, введите корректную сумму.");
+                return;
+            }
+
+            // ПРОВЕРКА БАЛАНСА
+            if (amountNumber > balance) {
+                alert(`❌ Недостаточно средств! Ваш баланс: ${balance} SECO.`);
+                return;
+            }
             
             if (address && amount) {
+                
+                // 1. ВЫЧИТАНИЕ ТОКЕНОВ И ОБНОВЛЕНИЕ БАЛАНСА
+                balance -= amountNumber; 
+                updateBalance();
+                
                 alert(`✅ Успешно! Вывод ${amount} SECO на адрес ${address.substring(0, 10)}... подтвержден. Транзакция отправлена в сеть.`);
                 modal.style.display = "none";
-                // В реальном приложении здесь был бы вызов блокчейн-API
                 
-                // Имитация добавления транзакции в историю (для наглядности)
+                // 2. Имитация добавления транзакции в историю
                 const list = document.querySelector('.transaction-list');
                 const newTransaction = document.createElement('li');
                 newTransaction.classList.add('transaction-item');
@@ -317,6 +347,10 @@
                     <div class="trans-amount send">-${amount} SECO</div>
                 `;
                 list.prepend(newTransaction);
+                
+                // Очистка формы
+                document.getElementById('recipient-address').value = '';
+                document.getElementById('send-amount').value = '';
             }
         }
     </script>
