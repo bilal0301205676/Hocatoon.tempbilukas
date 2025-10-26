@@ -1,95 +1,237 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>GreenEcoChain - Квесты</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GreenEcoChain — Квесты</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         :root {
-            --green-dark: #086B3C;
-            --green-accent: #1FA84B;
-            --token-bg: #FFC107;
-            --text-color: #000000;
-            --header-dark: #2c2c2c;
-            --card-bg: #FFFFFF;
+            --green-1: #0f8e4e;
+            --green-2: #0a6b44;
+            --accent: #28a745;
+            --accent-dark: #0e8b3f;
+            --token: #FFC107;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 40px rgba(8, 40, 20, 0.25);
+            --radius: 24px;
+            --header-bg: #1a3d2e;
+            --text-dark: #1f3f33;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, #FFFFFF 0%, var(--green-dark) 100%);
-            color: var(--text-color);
+            background: linear-gradient(180deg, #FFFFFF 0%, #086B3C 100%);
+            color: var(--text-dark);
             min-height: 100vh;
         }
 
-        /* --- СТИЛИ ШАПКИ (HEADER) - Общие --- */
-        header { width: 100%; position: sticky; top: 0; z-index: 1000; }
-        .header-top { background: var(--header-dark); color: #FFFFFF; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
-        .profile-circle { width: 36px; height: 36px; border-radius: 50%; background: #D8F6E8; color: var(--green-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-        .navigation-bar { background: #FFFFFF; border-radius: 0 0 25px 25px; padding: 12px 5%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
-        .nav-links { display: flex; justify-content: space-around; list-style: none; max-width: 800px; margin: 0 auto; }
-        .nav-link a { text-decoration: none; color: #333333; font-size: 15px; font-weight: 600; padding: 5px 15px; border-bottom: 3px solid transparent; }
-        .nav-link.active a { color: var(--green-accent); border-bottom: 3px solid var(--green-accent); }
-
-        /* --- СТИЛИ КОНТЕНТА --- */
-        .quest-container {
-            padding: 40px 5%; 
-            max-width: 900px; 
-            margin: 0 auto;
-        }
-        .main-title {
-            font-size: 44px; 
-            font-weight: 800; 
-            color: #FFFFFF;
-            margin-bottom: 30px;
+        /* === ШАПКА === */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--header-bg);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .quest-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        .header-top {
+            padding: 14px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-weight: 700;
         }
+
+        .logo {
+            font-size: 22px;
+            letter-spacing: 1.5px;
+            color: #fff;
+        }
+
+        .profile-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #d8f6e8;
+            color: var(--green-1);
+            font-weight: 800;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .navigation-bar {
+            background: white;
+            padding: 10px 5%;
+            border-radius: 0 0 24px 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            list-style: none;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .nav-link a {
+            text-decoration: none;
+            color: #444;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 16px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-link a:hover {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--accent);
+        }
+
+        .nav-link.active a {
+            background: var(--accent);
+            color: white;
+            font-weight: 700;
+        }
+
+        /* === КОНТЕНТ === */
+        .quest-container {
+            padding: 40px 5%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .main-title {
+            font-size: 38px;
+            font-weight: 800;
+            color: white;
+            text-align: center;
+            margin-bottom: 32px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .quest-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            backdrop-filter: blur(6px);
+        }
+
+        .quest-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(8, 40, 20, 0.3);
+        }
+
+        .quest-info {
+            flex: 1;
+        }
+
         .quest-info h3 {
             font-size: 20px;
-            color: var(--green-dark);
-            margin-bottom: 5px;
+            color: var(--green-1);
+            margin-bottom: 6px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+
+        .quest-info h3 i {
+            color: var(--accent);
+            font-size: 18px;
+        }
+
         .quest-info p {
             font-size: 14px;
             color: #555;
+            margin: 0;
         }
-        .quest-info .reward {
+
+        .reward {
             font-weight: 700;
-            color: var(--token-bg);
+            color: var(--token);
+            display: block;
+            margin-top: 4px;
+            font-size: 15px;
         }
 
         .action-btn {
-            background: var(--green-accent);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
+            padding: 12px 20px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 15px;
             text-decoration: none;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
         }
-        .action-btn:hover { background: #198754; }
 
-        .completed-btn {
-            background: #FFC107;
-            color: #333;
+        .action-btn.active {
+            background: var(--accent);
+            color: white;
         }
-        .completed-btn:hover {
+
+        .action-btn.active:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.completed {
+            background: var(--token);
+            color: #333;
+            cursor: default;
+        }
+
+        .action-btn.completed:hover {
             background: #e6b000;
+            transform: none;
+        }
+
+        /* === АДАПТИВНОСТЬ === */
+        @media (max-width: 992px) {
+            .nav-links { gap: 6px; }
+            .nav-link a { font-size: 13px; padding: 5px 10px; }
+        }
+
+        @media (max-width: 768px) {
+            .main-title { font-size: 32px; }
+            .quest-container { padding: 30px 5%; }
+            .quest-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+            }
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-top { padding: 12px 4%; }
+            .logo { font-size: 20px; }
+            .quest-info h3 { font-size: 18px; }
         }
     </style>
 </head>
@@ -97,15 +239,16 @@
 
     <header>
         <div class="header-top">
-            <div class="logo">ECOCHAIN</div>
+            <div class="logo">GreenEcoChain</div>
             <div class="profile-circle">А</div>
         </div>
         <nav class="navigation-bar">
             <ul class="nav-links">
-                <li class="nav-link"><a href="index.html">Главное</a></li>
-                <li class="nav-link active"><a href="quest.html">Квест</a></li>
-                <li class="nav-link"><a href="leaderboard.html">Таблица лидеров</a></li>
-                <li class="nav-link"><a href="games.html">Игры</a></li>
+                <li class="nav-link"><a href="main-menu.html">Главная</a></li>
+                <li class="nav-link active"><a href="quest.html">Квесты</a></li>
+                <li class="nav-link"><a href="wallet.html">Кошелёк</a></li>
+                <li class="nav-link"><a href="leaderboard.html">Лидеры</a></li>
+                <li class="nav-link"><a href="igra.html">Игры</a></li>
                 <li class="nav-link"><a href="map.html">Карта</a></li>
                 <li class="nav-link"><a href="rewards.html">Награды</a></li>
                 <li class="nav-link"><a href="profile.html">Профиль</a></li>
@@ -115,41 +258,54 @@
     </header>
 
     <main class="quest-container">
-        <h1 class="main-title">Активные Квесты 🌱</h1>
+        <h1 class="main-title">Активные Квесты</h1>
 
         <div class="quest-card">
             <div class="quest-info">
-                <h3>Посади дерево</h3>
-                <p>Требуется: фотоотчет с геотегом. <span class="reward">Награда: 50 SECO</span></p>
+                <h3><i class="fas fa-tree"></i> Посади дерево</h3>
+                <p>Требуется: фотоотчет с геотегом</p>
+                <span class="reward">Награда: 50 SECO</span>
             </div>
-            <a href="details.html" class="action-btn">Подробнее</a>
-        </div>
-        
-        <div class="quest-card">
-            <div class="quest-info">
-                <h3>Сдай 1 кг пластика</h3>
-                <p>Требуется: подтверждение с пункта приема. <span class="reward">Награда: 20 SECO</span></p>
-            </div>
-            <a href="details.html" class="action-btn">Подробнее</a>
-        </div>
-        
-        <div class="quest-card">
-            <div class="quest-info">
-                <h3>Викторина "Лист или Хвоя" (Выполнено)</h3>
-                <p>Требуется: пройти викторину. <span class="reward">Награда: 45 SECO</span></p>
-            </div>
-            <a href="#" class="action-btn completed-btn">Завершено!</a>
-        </div>
-        
-        <div class="quest-card">
-            <div class="quest-info">
-                <h3>Раздельный сбор (5 дней подряд)</h3>
-                <p>Требуется: ежедневная отметка в приложении. <span class="reward">Награда: 75 SECO</span></p>
-            </div>
-            <a href="details.html" class="action-btn">Подробнее</a>
+            <a href="details.html" class="action-btn active">Подробнее</a>
         </div>
 
+        <div class="quest-card">
+            <div class="quest-info">
+                <h3><i class="fas fa-recycle"></i> Сдай 1 кг пластика</h3>
+                <p>Требуется: подтверждение с пункта приема</p>
+                <span class="reward">Награда: 20 SECO</span>
+            </div>
+            <a href="details.html" class="action-btn active">Подробнее</a>
+        </div>
+
+        <div class="quest-card">
+            <div class="quest-info">
+                <h3><i class="fas fa-check-circle"></i> Викторина "Лист или Хвоя"</h3>
+                <p>Выполнено: 45 SECO начислено</p>
+                <span class="reward">Награда: 45 SECO</span>
+            </div>
+            <a href="#" class="action-btn completed">Завершено!</a>
+        </div>
+
+        <div class="quest-card">
+            <div class="quest-info">
+                <h3><i class="fas fa-calendar-check"></i> Раздельный сбор (5 дней)</h3>
+                <p>Ежедневная отметка в приложении</p>
+                <span class="reward">Награда: 75 SECO</span>
+            </div>
+            <a href="details.html" class="action-btn active">Подробнее</a>
+        </div>
     </main>
+
+    <script>
+        // Защита от прямого доступа
+        window.addEventListener('load', () => {
+            if (!sessionStorage.getItem('loggedIn')) {
+                alert('Пожалуйста, войдите в систему.');
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
 
 </body>
 </html>

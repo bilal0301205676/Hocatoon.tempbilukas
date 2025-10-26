@@ -1,112 +1,246 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>GreenEcoChain - Профиль</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GreenEcoChain — Профиль</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         :root {
-            --green-dark: #086B3C;
-            --green-accent: #1FA84B;
-            --token-color: #FFC107;
-            --text-color: #000000;
-            --header-dark: #2c2c2c;
-            --card-bg: #FFFFFF;
+            --green-1: #0f8e4e;
+            --green-2: #0a6b44;
+            --accent: #28a745;
+            --accent-dark: #0e8b3f;
+            --token: #FFC107;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 40px rgba(8, 40, 20, 0.25);
+            --radius: 24px;
+            --header-bg: #1a3d2e;
+            --text-dark: #1f3f33;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, #FFFFFF 0%, var(--green-dark) 100%);
-            color: var(--text-color);
+            background: linear-gradient(180deg, #FFFFFF 0%, #086B3C 100%);
+            color: var(--text-dark);
             min-height: 100vh;
         }
 
-        /* --- СТИЛИ ШАПКИ (HEADER) - Общие --- */
-        header { width: 100%; position: sticky; top: 0; z-index: 1000; }
-        .header-top { background: var(--header-dark); color: #FFFFFF; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
-        .profile-circle { width: 36px; height: 36px; border-radius: 50%; background: #D8F6E8; color: var(--green-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-        .navigation-bar { background: #FFFFFF; border-radius: 0 0 25px 25px; padding: 12px 5%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
-        .nav-links { display: flex; justify-content: space-around; list-style: none; max-width: 800px; margin: 0 auto; }
-        .nav-link a { text-decoration: none; color: #333333; font-size: 15px; font-weight: 600; padding: 5px 15px; border-bottom: 3px solid transparent; }
-        .nav-link.active a { color: var(--green-accent); border-bottom: 3px solid var(--green-accent); }
+        /* === ШАПКА === */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--header-bg);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
 
-        /* --- СТИЛИ КОНТЕНТА --- */
-        .profile-container {
-            padding: 40px 5%; 
-            max-width: 700px; 
+        .header-top {
+            padding: 14px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .logo {
+            font-size: 22px;
+            letter-spacing: 1.5px;
+            color: #fff;
+        }
+
+        .profile-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #d8f6e8;
+            color: var(--green-1);
+            font-weight: 800;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .navigation-bar {
+            background: white;
+            padding: 10px 5%;
+            border-radius: 0 0 24px 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            list-style: none;
+            flex-wrap: wrap;
+            max-width: 1000px;
             margin: 0 auto;
         }
+
+        .nav-link a {
+            text-decoration: none;
+            color: #444;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 16px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-link a:hover {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--accent);
+        }
+
+        .nav-link.active a {
+            background: var(--accent);
+            color: white;
+            font-weight: 700;
+        }
+
+        /* === КОНТЕНТ === */
+        .profile-container {
+            padding: 40px 5%;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
         .main-title {
-            font-size: 44px; 
-            font-weight: 800; 
-            color: #FFFFFF;
-            margin-bottom: 30px;
+            font-size: 38px;
+            font-weight: 800;
+            color: white;
             text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
 
         .profile-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 36px;
+            box-shadow: var(--shadow);
             text-align: center;
+            backdrop-filter: blur(6px);
         }
 
         .avatar {
-            width: 120px;
-            height: 120px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
-            background: var(--green-accent);
+            background: var(--accent);
             color: white;
-            font-size: 48px;
-            font-weight: 700;
+            font-size: 52px;
+            font-weight: 800;
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin: 0 auto 15px;
-            border: 5px solid #E8FFF0;
+            justify-content: center;
+            margin: 0 auto 16px;
+            border: 6px solid #e8fff0;
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.25);
+            transition: transform 0.2s;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
         }
 
         .username {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 800;
-            color: var(--green-dark);
-            margin-bottom: 10px;
+            color: var(--green-1);
+            margin-bottom: 8px;
+        }
+
+        .rank {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 24px;
+            font-weight: 600;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 30px;
+            gap: 18px;
+            margin-top: 28px;
         }
 
         .stat-item {
-            padding: 15px;
-            background: #F0FFF0;
-            border-radius: 10px;
+            background: #f0fff0;
+            padding: 18px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
         }
 
         .stat-value {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 800;
-            color: var(--green-accent);
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
 
         .stat-value.tokens {
-            color: var(--token-color);
+            color: var(--token);
+        }
+
+        .stat-value.green {
+            color: var(--accent);
         }
 
         .stat-label {
-            font-size: 14px;
-            color: #555;
+            font-size: 13px;
+            color: #666;
             font-weight: 600;
+        }
+
+        .edit-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 28px;
+            color: #1E88E5;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        .edit-link:hover {
+            color: #1565c0;
+        }
+
+        /* === АДАПТИВНОСТЬ === */
+        @media (max-width: 992px) {
+            .nav-links { gap: 6px; }
+            .nav-link a { font-size: 13px; padding: 5px 10px; }
+        }
+
+        @media (max-width: 768px) {
+            .main-title { font-size: 32px; }
+            .profile-container { padding: 30px 5%; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .avatar { width: 110px; height: 110px; font-size: 44px; }
+            .username { font-size: 26px; }
+        }
+
+        @media (max-width: 576px) {
+            .header-top { padding: 12px 4%; }
+            .logo { font-size: 20px; }
+            .profile-card { padding: 28px; }
         }
     </style>
 </head>
@@ -114,15 +248,16 @@
 
     <header>
         <div class="header-top">
-            <div class="logo">ECOCHAIN</div>
+            <div class="logo">GreenEcoChain</div>
             <div class="profile-circle">А</div>
         </div>
         <nav class="navigation-bar">
             <ul class="nav-links">
-                <li class="nav-link"><a href="index.html">Главное</a></li>
-                <li class="nav-link"><a href="quest.html">Квест</a></li>
-                <li class="nav-link"><a href="leaderboard.html">Таблица лидеров</a></li>
-                <li class="nav-link"><a href="games.html">Игры</a></li>
+                <li class="nav-link"><a href="main-menu.html">Главная</a></li>
+                <li class="nav-link"><a href="wallet.html">Кошелёк</a></li>
+                <li class="nav-link"><a href="quest.html">Квесты</a></li>
+                <li class="nav-link"><a href="leaderboard.html">Лидеры</a></li>
+                <li class="nav-link"><a href="igra.html">Игры</a></li>
                 <li class="nav-link"><a href="map.html">Карта</a></li>
                 <li class="nav-link"><a href="rewards.html">Награды</a></li>
                 <li class="nav-link active"><a href="profile.html">Профиль</a></li>
@@ -132,31 +267,43 @@
     </header>
 
     <main class="profile-container">
-        <h1 class="main-title">Мой Профиль 👤</h1>
+        <h1 class="main-title">Мой Профиль</h1>
 
         <div class="profile-card">
             <div class="avatar">А</div>
             <div class="username">Алексей Смирнов</div>
-            <p>Место в рейтинге: 5 из 100</p>
+            <div class="rank">Место в рейтинге: <strong>5</strong> из 100</div>
 
             <div class="stats-grid">
                 <div class="stat-item">
                     <div class="stat-value tokens">1950</div>
-                    <div class="stat-label">Всего SECO токенов</div>
+                    <div class="stat-label">Всего SECO</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value">12</div>
-                    <div class="stat-label">Выполненных квестов</div>
+                    <div class="stat-value green">12</div>
+                    <div class="stat-label">Квестов выполнено</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value">4</div>
-                    <div class="stat-label">Посаженных деревьев</div>
+                    <div class="stat-value green">4</div>
+                    <div class="stat-label">Деревьев посажено</div>
                 </div>
             </div>
-            
-            <a href="settings.html" style="margin-top: 30px; display: inline-block; color: #1E88E5; font-weight: 600;">Редактировать профиль</a>
+
+            <a href="settings.html" class="edit-link">
+                Редактировать профиль
+            </a>
         </div>
     </main>
+
+    <script>
+        // Защита от прямого доступа
+        window.addEventListener('load', () => {
+            if (!sessionStorage.getItem('loggedIn')) {
+                alert('Пожалуйста, войдите в систему.');
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
 
 </body>
 </html>

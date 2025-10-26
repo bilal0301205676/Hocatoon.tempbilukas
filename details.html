@@ -1,176 +1,409 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>GreenEcoChain - Детали квеста</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GreenEcoChain — Детали квеста</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         :root {
-            --green-dark: #086B3C;
-            --green-accent: #1FA84B;
-            --text-color: #000000;
-            --header-dark: #2c2c2c;
-            --card-bg: #FFFFFF;
-            --btn-complete: #28a745; 
-            --btn-edit: #ffc107; 
+            --green-1: #0f8e4e;
+            --green-2: #0a6b44;
+            --accent: #28a745;
+            --accent-dark: #0e8b3f;
+            --token: #FFC107;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 40px rgba(8, 40, 20, 0.25);
+            --radius: 24px;
+            --header-bg: #1a3d2e;
+            --text-dark: #1f3f33;
+            --progress-bg: #e0f2e0;
+            --progress-fill: #28a745;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, #FFFFFF 0%, var(--green-dark) 100%);
-            color: var(--text-color);
+            background: linear-gradient(180deg, #FFFFFF 0%, #086B3C 100%);
+            color: var(--text-dark);
             min-height: 100vh;
         }
 
-        /* --- СТИЛИ ШАПКИ (HEADER) - Упрощенная для страниц деталей --- */
-        header { width: 100%; padding: 15px 5%; background: var(--header-dark); color: #FFFFFF; }
-        .header-content { display: flex; justify-content: space-between; align-items: center; max-width: 900px; margin: 0 auto; }
-        .logo a { color: #FFFFFF; text-decoration: none; font-size: 24px; font-weight: 800; letter-spacing: 1px; }
-        .profile-circle { width: 36px; height: 36px; border-radius: 50%; background: #D8F6E8; color: var(--green-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        /* === ШАПКА === */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--header-bg);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
 
-        /* --- СТИЛИ КОНТЕНТА --- */
+        .header-top {
+            padding: 14px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .logo {
+            font-size: 22px;
+            letter-spacing: 1.5px;
+            color: #fff;
+        }
+
+        .profile-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #d8f6e8;
+            color: var(--green-1);
+            font-weight: 800;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* === КОНТЕНТ === */
         .details-container {
-            padding: 40px 5%; 
-            max-width: 900px; 
+            padding: 40px 5%;
+            max-width: 900px;
             margin: 0 auto;
         }
-        .main-title {
-            font-size: 36px; 
-            font-weight: 800; 
-            color: #FFFFFF;
-            margin-bottom: 20px;
-        }
+
         .back-link {
-            display: inline-block;
-            margin-bottom: 25px;
-            color: #D8F6E8;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #00bb64;
             text-decoration: none;
             font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 20px;
+            transition: color 0.2s;
         }
-        .back-link:hover { text-decoration: underline; }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        .main-title {
+            font-size: 38px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 32px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
 
         .quest-detail-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            line-height: 1.6;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 36px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(6px);
         }
 
-        .quest-detail-card h2 {
+        .quest-title {
             font-size: 28px;
-            color: var(--green-dark);
-            margin-bottom: 15px;
+            color: var(--green-1);
+            margin-bottom: 20px;
             font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .quest-info {
             font-size: 16px;
-            margin-bottom: 20px;
+            line-height: 1.8;
+            margin-bottom: 28px;
+            color: #444;
         }
+
         .quest-info strong {
-            color: var(--green-accent);
+            color: var(--green-1);
             font-weight: 700;
         }
 
         .progress-section {
-            padding: 20px;
-            background: #F0FFF0;
-            border-radius: 10px;
-            margin-bottom: 25px;
+            background: #f0fff0;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 28px;
+            border: 1px solid #d0e8d0;
         }
+
+        .progress-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--green-1);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .progress-bar-container {
-            width: 100%; 
-            height: 20px; 
-            background: #DFEEE0;
-            border-radius: 10px; 
-            margin: 10px 0; 
+            height: 20px;
+            background: #dfefdf;
+            border-radius: 10px;
             overflow: hidden;
+            margin-bottom: 12px;
+            position: relative;
         }
-        .progress-bar { 
-            height: 100%; 
-            background: var(--green-accent); 
-            border-radius: 10px; 
-            transition: width 0.5s;
+
+        .progress-bar {
+            height: 100%;
+            background: var(--progress-fill);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.8s ease;
             display: flex;
             align-items: center;
             justify-content: flex-end;
+            padding-right: 12px;
             color: white;
-            padding-right: 10px;
             font-weight: 700;
+            font-size: 14px;
         }
 
-        .action-buttons button {
-            padding: 12px 25px;
-            border-radius: 8px;
+        .progress-text {
+            font-size: 15px;
+            color: #444;
+            margin-top: 8px;
+        }
+
+        .instructions {
+            margin-bottom: 32px;
+        }
+
+        .instructions h3 {
+            font-size: 20px;
+            color: var(--green-1);
+            margin-bottom: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .instructions ol {
+            padding-left: 24px;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #444;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .upload-btn, .complete-btn {
+            padding: 14px 24px;
             border: none;
+            border-radius: 16px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            font-size: 16px;
-            margin-right: 15px;
-            transition: opacity 0.2s, transform 0.2s;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 180px;
+            justify-content: center;
+        }
+
+        .upload-btn {
+            background: var(--token);
+            color: #333;
+        }
+
+        .upload-btn:hover {
+            background: #e6b000;
+            transform: translateY(-2px);
         }
 
         .complete-btn {
-            background: var(--btn-complete);
+            background: var(--accent);
             color: white;
         }
-        .upload-btn {
-            background: var(--btn-edit);
-            color: #333;
-        }
-        .action-buttons button:hover {
+
+        .complete-btn:hover {
+            background: var(--accent-dark);
             transform: translateY(-2px);
-            opacity: 0.9;
+        }
+
+        .complete-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 16px;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* === АДАПТИВНОСТЬ === */
+        @media (max-width: 768px) {
+            .main-title { font-size: 32px; }
+            .details-container { padding: 30px 5%; }
+            .quest-title { font-size: 24px; }
+            .action-buttons { flex-direction: column; }
+            .upload-btn, .complete-btn { width: 100%; }
+        }
+
+        @media (max-width: 576px) {
+            .header-top { padding: 12px 4%; }
+            .logo { font-size: 20px; }
+            .quest-detail-card { padding: 28px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="header-content">
-            <div class="logo"><a href="index.html">ECOCHAIN</a></div>
+        <div class="header-top">
+            <div class="logo">GreenEcoChain</div>
             <div class="profile-circle">А</div>
         </div>
     </header>
 
     <main class="details-container">
-        <a href="quest.html" class="back-link">← Вернуться к списку квестов</a>
-        <h1 class="main-title">Подробности квеста</h1>
+        <a href="quest.html" class="back-link">
+            Назад к квестам
+        </a>
+        <h1 class="main-title">Детали квеста</h1>
 
         <div class="quest-detail-card">
-            <h2>🌱 Посади дерево</h2>
-            <p class="quest-info">
-                <strong>Награда:</strong> 50 SECO Tokens<br>
+            <h2 class="quest-title">Посади дерево</h2>
+
+            <div class="quest-info">
+                <strong>Награда:</strong> 50 SECO<br>
                 <strong>Срок:</strong> До 30.11.2025<br>
-                <strong>Место:</strong> Любой парк или придомовая территория (требуется фотоотчет).
-            </p>
+                <strong>Место:</strong> Любой парк или придомовая территория
+            </div>
 
             <div class="progress-section">
-                <h3>Ваш прогресс:</h3>
+                <div class="progress-title">Ваш прогресс</div>
                 <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: 75%;">75%</div>
+                    <div class="progress-bar" id="progress-bar">0%</div>
                 </div>
-                <p>Отличная работа! Осталось сделать еще один шаг, чтобы завершить этот важный вклад в природу.</p>
+                <p class="progress-text">Вы почти у цели! Загрузите фотоотчет, чтобы завершить квест.</p>
             </div>
-            
-            <h3>Инструкции:</h3>
-            <ol>
-                <li>Выберите подходящее место и вид дерева.</li>
-                <li>Сделайте фотографию процесса посадки.</li>
-                <li>Загрузите фото ниже для проверки.</li>
-            </ol>
+
+            <div class="instructions">
+                <h3>Как выполнить:</h3>
+                <ol>
+                    <li>Выберите место и саженец</li>
+                    <li>Сфотографируйте процесс посадки с геотегом</li>
+                    <li>Загрузите фото ниже</li>
+                </ol>
+            </div>
 
             <div class="action-buttons">
-                <button class="upload-btn">Загрузить фотоотчет</button>
-                <button class="complete-btn">Завершить и получить токены</button>
+                <label class="upload-btn">
+                    Загрузить фото
+                    <input type="file" id="photo-upload" accept="image/*" style="display: none;">
+                </label>
+                <button class="complete-btn" id="complete-btn" disabled>
+                    Завершить квест
+                </button>
             </div>
         </div>
     </main>
+
+    <!-- Уведомление -->
+    <div class="notification" id="notification">
+        <span id="notification-text"></span>
+    </div>
+
+    <script>
+        // Защита от прямого доступа
+        window.addEventListener('load', () => {
+            if (!sessionStorage.getItem('loggedIn')) {
+                alert('Пожалуйста, войдите в систему.');
+                window.location.href = 'index.html';
+            }
+
+            // Прогресс
+            const progressBar = document.getElementById('progress-bar');
+            setTimeout(() => {
+                progressBar.style.width = '75%';
+                progressBar.textContent = '75%';
+            }, 300);
+
+            // Загрузка фото
+            const photoInput = document.getElementById('photo-upload');
+            const completeBtn = document.getElementById('complete-btn');
+
+            photoInput.addEventListener('change', () => {
+                if (photoInput.files && photoInput.files[0]) {
+                    progressBar.style.width = '100%';
+                    progressBar.textContent = '100%';
+                    completeBtn.disabled = false;
+                    showNotification('Фото загружено! Теперь можно завершить квест.');
+                }
+            });
+
+            // Завершение квеста
+            completeBtn.addEventListener('click', () => {
+                let balance = parseInt(sessionStorage.getItem('secoBalance')) || 1950;
+                balance += 50;
+                sessionStorage.setItem('secoBalance', balance);
+
+                showNotification('Квест завершён! +50 SECO на ваш счёт!', 'success');
+                completeBtn.disabled = true;
+                completeBtn.textContent = 'Завершено';
+
+                setTimeout(() => {
+                    window.location.href = 'quest.html';
+                }, 2000);
+            });
+
+            function showNotification(message, type = 'success') {
+                const notif = document.getElementById('notification');
+                const text = document.getElementById('notification-text');
+                text.textContent = message;
+                notif.style.background = type === 'error' ? '#dc3545' : '#28a745';
+                notif.style.display = 'flex';
+
+                setTimeout(() => {
+                    notif.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
 
 </body>
 </html>

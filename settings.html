@@ -1,81 +1,166 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>GreenEcoChain - Настройки</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GreenEcoChain — Настройки</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         :root {
-            --green-dark: #086B3C;
-            --green-accent: #1FA84B;
-            --text-color: #000000;
-            --header-dark: #2c2c2c;
-            --card-bg: #FFFFFF;
-            --btn-save: #1E88E5; /* Синяя кнопка для сохранения */
-            --input-border: #CCCCCC;
+            --green-1: #0f8e4e;
+            --green-2: #0a6b44;
+            --accent: #28a745;
+            --accent-dark: #0e8b3f;
+            --token: #FFC107;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 40px rgba(8, 40, 20, 0.25);
+            --radius: 24px;
+            --header-bg: #1a3d2e;
+            --text-dark: #1f3f33;
+            --btn-save: #1E88E5;
+            --input-border: #ddd;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, #FFFFFF 0%, var(--green-dark) 100%);
-            color: var(--text-color);
+            background: linear-gradient(180deg, #FFFFFF 0%, #086B3C 100%);
+            color: var(--text-dark);
             min-height: 100vh;
         }
 
-        /* --- СТИЛИ ШАПКИ (HEADER) - Общие --- */
-        header { width: 100%; position: sticky; top: 0; z-index: 1000; }
-        .header-top { background: var(--header-dark); color: #FFFFFF; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
-        .profile-circle { width: 36px; height: 36px; border-radius: 50%; background: #D8F6E8; color: var(--green-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-        .navigation-bar { background: #FFFFFF; border-radius: 0 0 25px 25px; padding: 12px 5%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
-        .nav-links { display: flex; justify-content: space-around; list-style: none; max-width: 800px; margin: 0 auto; }
-        .nav-link a { text-decoration: none; color: #333333; font-size: 15px; font-weight: 600; padding: 5px 15px; border-bottom: 3px solid transparent; }
-        .nav-link.active a { color: var(--green-accent); border-bottom: 3px solid var(--green-accent); }
+        /* === ШАПКА === */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--header-bg);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
 
-        /* --- СТИЛИ КОНТЕНТА --- */
-        .settings-container {
-            padding: 40px 5%; 
-            max-width: 700px; 
+        .header-top {
+            padding: 14px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .logo {
+            font-size: 22px;
+            letter-spacing: 1.5px;
+            color: #fff;
+        }
+
+        .profile-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #d8f6e8;
+            color: var(--green-1);
+            font-weight: 800;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .navigation-bar {
+            background: white;
+            padding: 10px 5%;
+            border-radius: 0 0 24px 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            list-style: none;
+            flex-wrap: wrap;
+            max-width: 1000px;
             margin: 0 auto;
         }
+
+        .nav-link a {
+            text-decoration: none;
+            color: #444;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 16px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-link a:hover {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--accent);
+        }
+
+        .nav-link.active a {
+            background: var(--accent);
+            color: white;
+            font-weight: 700;
+        }
+
+        /* === КОНТЕНТ === */
+        .settings-container {
+            padding: 40px 5%;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
         .main-title {
-            font-size: 44px; 
-            font-weight: 800; 
-            color: #FFFFFF;
-            margin-bottom: 30px;
+            font-size: 38px;
+            font-weight: 800;
+            color: white;
             text-align: center;
+            margin-bottom: 32px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
 
         .settings-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 36px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(6px);
         }
 
         .setting-group {
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #EEE;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
         }
+
         .setting-group:last-child {
             border-bottom: none;
             margin-bottom: 0;
+            padding-bottom: 0;
         }
 
         .setting-group h2 {
             font-size: 22px;
-            color: var(--green-dark);
+            color: var(--green-1);
             margin-bottom: 20px;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .setting-group h2 i {
+            color: var(--accent);
         }
 
         .input-field {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .input-field label {
@@ -83,44 +168,76 @@
             font-size: 14px;
             font-weight: 600;
             color: #555;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .input-field input[type="text"],
         .input-field input[type="email"],
         .input-field select {
             width: 100%;
-            padding: 10px 15px;
+            padding: 14px 16px;
             border: 1px solid var(--input-border);
-            border-radius: 8px;
+            border-radius: 16px;
             font-size: 16px;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
+            background: #f9f9f9;
         }
 
         .input-field input:focus,
         .input-field select:focus {
-            border-color: var(--green-accent);
-            box-shadow: 0 0 0 3px rgba(31, 168, 75, 0.2);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.15);
             outline: none;
+            background: white;
         }
-        
+
         .save-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            border-radius: 10px;
-            border: none;
+            margin-top: 28px;
+            padding: 16px;
             background: var(--btn-save);
             color: white;
-            font-size: 18px;
+            border: none;
+            border-radius: 16px;
+            font-size: 17px;
             font-weight: 700;
             cursor: pointer;
-            transition: background 0.2s, transform 0.2s;
-            margin-top: 30px;
+            width: 100%;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
+
         .save-btn:hover {
-            background: #1565C0;
+            background: #1565c0;
             transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(30, 136, 229, 0.3);
+        }
+
+        .success-message {
+            margin-top: 16px;
+            padding: 12px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+
+        /* === АДАПТИВНОСТЬ === */
+        @media (max-width: 768px) {
+            .main-title { font-size: 32px; }
+            .settings-container { padding: 30px 5%; }
+            .setting-group h2 { font-size: 20px; }
+        }
+
+        @media (max-width: 576px) {
+            .header-top { padding: 12px 4%; }
+            .logo { font-size: 20px; }
+            .settings-card { padding: 28px; }
+            .save-btn { font-size: 16px; }
         }
     </style>
 </head>
@@ -128,14 +245,14 @@
 
     <header>
         <div class="header-top">
-            <div class="logo">ECOCHAIN</div>
+            <div class="logo">GreenEcoChain</div>
             <div class="profile-circle">А</div>
         </div>
         <nav class="navigation-bar">
             <ul class="nav-links">
-                <li class="nav-link"><a href="index.html">Главное</a></li>
-                <li class="nav-link"><a href="quest.html">Квест</a></li>
-                <li class="nav-link"><a href="leaderboard.html">Таблица лидеров</a></li>
+                <li class="nav-link"><a href="main-menu.html">Главная</a></li>
+                <li class="nav-link"><a href="quest.html">Квесты</a></li>
+                <li class="nav-link"><a href="leaderboard.html">Лидеры</a></li>
                 <li class="nav-link"><a href="games.html">Игры</a></li>
                 <li class="nav-link"><a href="map.html">Карта</a></li>
                 <li class="nav-link"><a href="rewards.html">Награды</a></li>
@@ -146,33 +263,33 @@
     </header>
 
     <main class="settings-container">
-        <h1 class="main-title">Настройки Профиля</h1>
+        <h1 class="main-title">Настройки</h1>
 
         <div class="settings-card">
-            <form>
+            <form id="settings-form">
                 <div class="setting-group">
                     <h2>Личные данные</h2>
                     <div class="input-field">
                         <label for="name">Имя пользователя</label>
-                        <input type="text" id="name" value="Алексей Смирнов">
+                        <input type="text" id="name" value="Алексей Смирнов" required>
                     </div>
                     <div class="input-field">
                         <label for="email">E-mail</label>
-                        <input type="email" id="email" value="alexei.s@example.com">
+                        <input type="email" id="email" value="alexei.s@example.com" required>
                     </div>
                 </div>
 
                 <div class="setting-group">
-                    <h2>Уведомления</h2>
+                    <h2>Уведомления и язык</h2>
                     <div class="input-field">
-                        <label for="notifications">Получать уведомления о новых квестах</label>
+                        <label for="notifications">Уведомления о квестах</label>
                         <select id="notifications">
-                            <option value="yes">Да</option>
-                            <option value="no">Нет</option>
+                            <option value="yes">Включены</option>
+                            <option value="no">Отключены</option>
                         </select>
                     </div>
                     <div class="input-field">
-                        <label for="language">Язык</label>
+                        <label for="language">Язык интерфейса</label>
                         <select id="language">
                             <option value="ru">Русский</option>
                             <option value="en">English</option>
@@ -180,10 +297,54 @@
                     </div>
                 </div>
 
-                <button type="submit" class="save-btn">Сохранить изменения</button>
+                <button type="submit" class="save-btn">
+                    Сохранить изменения
+                </button>
+                <div class="success-message" id="success-message">
+                    Настройки успешно сохранены!
+                </div>
             </form>
         </div>
     </main>
+
+    <script>
+        // Защита от прямого доступа
+        window.addEventListener('load', () => {
+            if (!sessionStorage.getItem('loggedIn')) {
+                alert('Пожалуйста, войдите в систему.');
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Обработка формы
+        const form = document.getElementById('settings-form');
+        const successMsg = document.getElementById('success-message');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const name = document.getElementById('name').value.trim();
+
+            // Простая валидация
+            if (!name) {
+                alert('Введите имя пользователя');
+                return;
+            }
+            if (!/^\S+@\S+\.\S+$/.test(email)) {
+                alert('Введите корректный email');
+                return;
+            }
+
+            // Имитация сохранения
+            setTimeout(() => {
+                successMsg.style.display = 'block';
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 3000);
+            }, 500);
+        });
+    </script>
 
 </body>
 </html>

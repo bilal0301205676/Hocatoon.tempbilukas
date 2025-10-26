@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GreenEcoChain — Викторина</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --green-1: #0f8e4e;
+            --green-2: #0a6b44;
+            --accent: #28a745;
+            --accent-dark: #0e8b3f;
+            --token: #FFC107;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 40px rgba(8, 40, 20, 0.25);
+            --radius: 24px;
+            --header-bg: #1a3d2e;
+            --text-dark: #1f3f33;
+            --correct: #28a745;
+            --wrong: #dc3545;
+            --disabled: #f0f0f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #FFFFFF 0%, #086B3C 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        /* === ШАПКА === */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--header-bg);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-top {
+            padding: 14px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .logo {
+            font-size: 22px;
+            letter-spacing: 1.5px;
+            color: #fff;
+        }
+
+        .profile-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #d8f6e8;
+            color: var(--green-1);
+            font-weight: 800;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .navigation-bar {
+            background: white;
+            padding: 10px 5%;
+            border-radius: 0 0 24px 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            list-style: none;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .nav-link a {
+            text-decoration: none;
+            color: #444;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 16px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-link a:hover {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--accent);
+        }
+
+        .nav-link.active a {
+            background: var(--accent);
+            color: white;
+            font-weight: 700;
+        }
+
+        /* === КОНТЕНТ === */
+        .quiz-container {
+            padding: 40px 5%;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .main-title {
+            font-size: 38px;
+            font-weight: 800;
+            color: white;
+            text-align: center;
+            margin-bottom: 32px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .quiz-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 36px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            backdrop-filter: blur(6px);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .question-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 16px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .question-number {
+            color: var(--green-1);
+            font-weight: 700;
+        }
+
+        .score-display {
+            color: var(--token);
+            font-weight: 700;
+        }
+
+        .question-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--green-1);
+            margin-bottom: 28px;
+            line-height: 1.4;
+        }
+
+        .options-list {
+            list-style: none;
+            display: grid;
+            gap: 14px;
+        }
+
+        .option-btn {
+            padding: 16px 20px;
+            background: var(--disabled);
+            border: 2px solid #ddd;
+            border-radius: 16px;
+            font-size: 17px;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option-btn i {
+            font-size: 18px;
+            opacity: 0.7;
+        }
+
+        .option-btn:hover:not(.selected):not(.correct):not(.wrong) {
+            background: #e8f5e9;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .option-btn.selected {
+            border-color: var(--accent);
+            background: #d4edda;
+        }
+
+        .option-btn.correct {
+            background: var(--correct);
+            color: white;
+            border-color: var(--correct);
+            animation: pulse 0.6s;
+        }
+
+        .option-btn.wrong {
+            background: var(--wrong);
+            color: white;
+            border-color: var(--wrong);
+        }
+
+        .next-btn {
+            margin-top: 28px;
+            padding: 16px;
+            background: #1E88E5;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .next-btn:hover {
+            background: #1565c0;
+            transform: translateY(-2px);
+        }
+
+        .next-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-screen {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .result-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--green-1);
+            margin-bottom: 16px;
+        }
+
+        .result-score {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--token);
+            margin: 20px 0;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        /* === АДАПТИВНОСТЬ === */
+        @media (max-width: 768px) {
+            .main-title { font-size: 32px; }
+            .quiz-container { padding: 30px 5%; }
+            .question-text { font-size: 21px; }
+            .option-btn { font-size: 16px; padding: 14px 16px; }
+        }
+
+        @media (max-width: 576px) {
+            .header-top { padding: 12px 4%; }
+            .logo { font-size: 20px; }
+            .quiz-card { padding: 28px; }
+            .result-score { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <div class="logo">GreenEcoChain</div>
+            <div class="profile-circle">А</div>
+        </div>
+        <nav class="navigation-bar">
+            <ul class="nav-links">
+                <li class="nav-link"><a href="main-menu.html">Главная</a></li>
+                <li class="nav-link"><a href="quest.html">Квесты</a></li>
+                <li class="nav-link"><a href="leaderboard.html">Лидеры</a></li>
+                <li class="nav-link active"><a href="igra.html">Игры</a></li>
+                <li class="nav-link"><a href="map.html">Карта</a></li>
+                <li class="nav-link"><a href="rewards.html">Награды</a></li>
+                <li class="nav-link"><a href="profile.html">Профиль</a></li>
+                <li class="nav-link"><a href="settings.html">Настройки</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="quiz-container">
+        <h1 class="main-title">Викторина: Деревья</h1>
+
+        <div class="quiz-card">
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+            <div class="question-info">
+                <span class="question-number" id="question-number">Вопрос 1 из 5</span>
+                <span class="score-display" id="score-display">Очки: 0 SECO</span>
+            </div>
+
+            <div class="question-text" id="question-text"></div>
+
+            <ul class="options-list" id="options-list"></ul>
+
+            <button class="next-btn" id="next-btn" disabled>
+                Следующий вопрос
+            </button>
+
+            <!-- Экран результата -->
+            <div class="result-screen" id="result-screen">
+                <h2 class="result-title">Викторина завершена!</h2>
+                <div class="result-score" id="final-score">0 SECO</div>
+                <p>Спасибо за участие! Вы заработали <strong id="earned-tokens">0 SECO</strong>.</p>
+                <button class="next-btn" onclick="window.location.href='quest.html'">Вернуться к квестам</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Защита от прямого доступа
+        window.addEventListener('load', () => {
+            if (!sessionStorage.getItem('loggedIn')) {
+                alert('Пожалуйста, войдите в систему.');
+                window.location.href = 'index.html';
+            }
+        });
+
+        // === ВОПРОСЫ ВИКТОРИНЫ ===
+        const questions = [
+            {
+                question: "Какое из этих деревьев является хвойным?",
+                options: ["Дуб", "Ель", "Клён", "Берёза"],
+                correct: 1
+            },
+            {
+                question: "Какое дерево даёт каучук?",
+                options: ["Сосна", "Гевея", "Берёза", "Дуб"],
+                correct: 1
+            },
+            {
+                question: "Какое дерево считается символом Канады?",
+                options: ["Берёза", "Клён", "Ель", "Секвойя"],
+                correct: 1
+            },
+            {
+                question: "Какое дерево живёт дольше всех?",
+                options: ["Баобаб", "Сосна остистая", "Дуб", "Секвойя"],
+                correct: 1
+            },
+            {
+                question: "Какое дерево очищает воздух лучше всего?",
+                options: ["Тополь", "Сосна", "Каштан", "Берёза"],
+                correct: 0
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let selectedAnswer = null;
+
+        const questionText = document.getElementById('question-text');
+        const optionsList = document.getElementById('options-list');
+        const nextBtn = document.getElementById('next-btn');
+        const progressFill = document.getElementById('progress-fill');
+        const questionNumber = document.getElementById('question-number');
+        const scoreDisplay = document.getElementById('score-display');
+        const resultScreen = document.getElementById('result-screen');
+        const finalScore = document.getElementById('final-score');
+        const earnedTokens = document.getElementById('earned-tokens');
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            questionText.textContent = q.question;
+            questionNumber.textContent = `Вопрос ${currentQuestion + 1} из ${questions.length}`;
+            progressFill.style.width = `${((currentQuestion) / questions.length) * 100}%`;
+
+            optionsList.innerHTML = '';
+            q.options.forEach((option, index) => {
+                const li = document.createElement('li');
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `${String.fromCharCode(65 + index)}. ${option}`;
+                btn.onclick = () => selectAnswer(index, btn);
+                li.appendChild(btn);
+                optionsList.appendChild(li);
+            });
+
+            nextBtn.disabled = true;
+            nextBtn.textContent = 'Следующий вопрос';
+            selectedAnswer = null;
+        }
+
+        function selectAnswer(index, btn) {
+            if (selectedAnswer !== null) return;
+
+            selectedAnswer = index;
+            const q = questions[currentQuestion];
+            const correctIndex = q.correct;
+
+            // Подсветка выбора
+            document.querySelectorAll('.option-btn').forEach(b => {
+                b.classList.add('selected');
+                b.style.pointerEvents = 'none';
+            });
+            btn.classList.add('selected');
+
+            // Проверка ответа
+            setTimeout(() => {
+                if (index === correctIndex) {
+                    btn.classList.add('correct');
+                    score += 10;
+                    updateScore();
+                    setTimeout(() => alert('Верно! +10 SECO'), 300);
+                } else {
+                    btn.classList.add('wrong');
+                    document.querySelectorAll('.option-btn')[correctIndex].classList.add('correct');
+                    setTimeout(() => alert(`Неверно. Правильный ответ: ${q.options[correctIndex]}`), 300);
+                }
+
+                nextBtn.disabled = false;
+                if (currentQuestion === questions.length - 1) {
+                    nextBtn.textContent = 'Завершить викторину';
+                }
+            }, 400);
+        }
+
+        function updateScore() {
+            scoreDisplay.textContent = `Очки: ${score} SECO`;
+        }
+
+        nextBtn.onclick = () => {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        };
+
+        function showResult() {
+            document.querySelector('.question-info').style.display = 'none';
+            document.getElementById('question-text').style.display = 'none';
+            document.getElementById('options-list').style.display = 'none';
+            nextBtn.style.display = 'none';
+            progressFill.style.width = '100%';
+
+            finalScore.textContent = `${score} SECO`;
+            earnedTokens.textContent = score;
+            resultScreen.style.display = 'block';
+        }
+
+        // Запуск
+        loadQuestion();
+    </script>
+
+</body>
+</html>

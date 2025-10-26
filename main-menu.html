@@ -1,28 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>GreenEcoChain - Главное меню</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GreenEcoChain — Главное меню</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         :root {
-            --green-dark: #086B3C;
-            --green-accent: #1FA84B;
-            --main-card-bg: #FFFFFF;
+            --green-1: #0f8e4e;
+            --green-2: #0a6b44;
+            --accent: #28a745;
+            --accent-dark: #0e8b3f;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --shadow: 0 10px 40px rgba(8, 40, 20, 0.25);
+            --radius: 30px;
             --btn-green: #4CAF50;
+            --btn-yellow: #FFC107;
+            --btn-blue: #17A2B8;
             --btn-red: #E53935;
-            --btn-wallet: #FFC107; /* Цвет для кнопки Кошелька */
+            --text-dark: #1f3f33;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Inter', sans-serif;
-            /* Стиль фона, как на фото (градиент) */
-            background: linear-gradient(180deg, #FFFFFF 0%, var(--green-dark) 100%);
-            color: var(--text-color);
+            background: linear-gradient(180deg, #FFFFFF 0%, #086B3C 100%);
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -31,68 +37,76 @@
         }
 
         .main-wrapper {
-            max-width: 1000px;
+            max-width: 1100px;
             width: 100%;
-            display: flex;
-            background: rgba(255, 255, 255, 0.85); 
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            border-radius: 30px;
-            overflow: hidden; 
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(8px);
         }
 
         .left-panel {
-            background: linear-gradient(135deg, #A7D8A7, var(--green-dark));
-            width: 35%;
+            background: linear-gradient(135deg, #A7D8A7, var(--green-2));
             padding: 40px;
-            border-radius: 30px 0 0 30px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            border-radius: var(--radius) 0 0 var(--radius);
         }
+
         .logo-box {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, var(--green-accent), #054C2D); 
-            border-radius: 10px;
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, var(--accent), #054C2D);
+            border-radius: 18px;
             transform: rotate(45deg);
             display: flex;
             justify-content: center;
             align-items: center;
             margin-bottom: 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
         }
+
         .logo-text {
             color: #FFFFFF;
-            font-size: 32px;
+            font-size: 38px;
             font-weight: 800;
             transform: rotate(-45deg);
+            letter-spacing: 3px;
         }
+
         .app-name {
             color: #FFFFFF;
             font-size: 24px;
             font-weight: 700;
             letter-spacing: 2px;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); 
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
         .menu-panel {
-            background: var(--main-card-bg);
-            width: 65%;
+            background: var(--bg-card);
             padding: 50px;
-            border-radius: 0 30px 30px 0;
+            border-radius: 0 var(--radius) var(--radius) 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
+
         .menu-title {
             font-size: 36px;
             font-weight: 800;
-            color: var(--green-dark);
+            color: var(--green-2);
             margin-bottom: 40px;
+            text-align: center;
         }
+
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -102,111 +116,166 @@
             margin-bottom: 30px;
         }
 
-        .menu-btn, .logout-btn {
-            padding: 15px 25px;
-            border-radius: 15px;
+        .menu-btn {
+            padding: 18px 20px;
+            border-radius: 18px;
             border: none;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none; 
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: white;
             display: flex;
-            justify-content: center;
             align-items: center;
-            text-align: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-        
-        .menu-btn {
-            background: var(--btn-green);
-            color: #FFFFFF;
-            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
+
+        .menu-btn i {
+            font-size: 20px;
         }
+
         .menu-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
         }
-        
-        /* СТИЛЬ ДЛЯ КНОПКИ КОШЕЛЕК */
-        .menu-btn.wallet-button {
-             background: var(--btn-wallet); /* Желтый цвет токена */
-             color: #333;
-             box-shadow: 0 4px 10px rgba(255, 193, 7, 0.5);
-        }
-        .menu-btn.wallet-button:hover {
-            box-shadow: 0 6px 15px rgba(255, 193, 7, 0.7);
-        }
-       
-        
-        .menu-btn.games-button {
-            background: #FFC107; 
-            color: #333;
-            grid-column: span 1; 
-            box-shadow: 0 4px 10px rgba(255, 193, 7, 0.5);
-        }
-        .menu-btn.map-rewards-button {
-            background: #17A2B8;
-            color: #FFFFFF;
-        }
+
+        /* Цветовые классы */
+        .btn-green { background: var(--btn-green); }
+        .btn-yellow { background: var(--btn-yellow); color: var(--text-dark); }
+        .btn-blue { background: var(--btn-blue); }
+        .btn-red { background: var(--btn-red); }
+
+        .btn-yellow:hover { box-shadow: 0 8px 20px rgba(255, 193, 7, 0.5); }
+        .btn-blue:hover { box-shadow: 0 8px 20px rgba(23, 162, 184, 0.5); }
+        .btn-red:hover { background: #c62828; }
 
         .logout-btn {
             grid-column: span 2;
-            background: #E53935;
-            color: #FFFFFF;
-            box-shadow: 0 4px 10px rgba(229, 57, 53, 0.4);
-        }
-        .logout-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(229, 57, 53, 0.6);
+            background: var(--btn-red);
+            color: white;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 18px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(229, 57, 53, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        @media (max-width: 768px) {
+        .logout-btn:hover {
+            background: #c62828;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(229, 57, 53, 0.6);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
             .main-wrapper {
-                flex-direction: column;
-                border-radius: 30px;
+                grid-template-columns: 1fr;
+                max-width: 700px;
             }
-            .left-panel, .menu-panel {
-                width: 100%;
-                border-radius: 30px 30px 0 0;
+            .left-panel {
+                border-radius: var(--radius) var(--radius) 0 0;
                 padding: 30px;
             }
             .menu-panel {
-                border-radius: 0 0 30px 30px;
+                border-radius: 0 0 var(--radius) var(--radius);
+                padding: 40px 30px;
             }
             .menu-grid {
                 grid-template-columns: 1fr;
             }
-            .menu-btn.games-button, .menu-btn.wallet-button, .logout-btn {
+            .logout-btn {
                 grid-column: span 1;
             }
+        }
+
+        @media (max-width: 576px) {
+            .menu-title { font-size: 28px; }
+            .menu-btn { font-size: 16px; padding: 16px; }
+            .logo-box { width: 100px; height: 100px; }
+            .logo-text { font-size: 28px; }
+            .app-name { font-size: 20px; }
         }
     </style>
 </head>
 <body>
 
     <div class="main-wrapper">
+        <!-- Левая панель -->
         <div class="left-panel">
             <div class="logo-box">
                 <div class="logo-text">EGC</div>
             </div>
-            <div class="app-name">ECOGREENCHAIN</div>
+            <div class="app-name">GreenEcoChain</div>
         </div>
 
+        <!-- Правая панель — меню -->
         <div class="menu-panel">
             <h1 class="menu-title">Главное меню</h1>
             <div class="menu-grid">
-                <a href="wallet.html" class="menu-btn wallet-button">Кошелек 💰</a>
-                <a href="quest.html" class="menu-btn">Квесты 🌱</a>
-                <a href="leaderboard.html" class="menu-btn">Таблица лидеров 🏆</a>
-                <a href="profile.html" class="menu-btn">Профиль 👤</a>
-                <a href="settings.html" class="menu-btn">Настройки ⚙</a>
-                <a href="games.html" class="menu-btn games-button">Игры про деревья 🌲</a>
-                <a href="map.html" class="menu-btn map-rewards-button">Карта пунктов 🗺</a>
-                <a href="rewards.html" class="menu-btn map-rewards-button">Награды (Магазин) 🎁</a>
-                <a href="#" class="logout-btn">Выйти</a>
+                <a href="wallet.html" class="menu-btn btn-yellow">
+                    <i class="fas fa-wallet"></i> Кошелёк
+                </a>
+                <a href="quest.html" class="menu-btn btn-green">
+                    <i class="fas fa-leaf"></i> Квесты
+                </a>
+
+                <a href="leaderboard.html" class="menu-btn btn-blue">
+                    <i class="fas fa-trophy"></i> Лидеры
+                </a>
+                <a href="profile.html" class="menu-btn btn-green">
+                    <i class="fas fa-user"></i> Профиль
+                </a>
+
+                <a href="igra.html" class="menu-btn btn-yellow">
+                    <i class="fas fa-gamepad"></i> Игры
+                </a>
+                <a href="settings.html" class="menu-btn btn-green">
+                    <i class="fas fa-cog"></i> Настройки
+                </a>
+
+                <a href="map.html" class="menu-btn btn-blue">
+                    <i class="fas fa-map-marked-alt"></i> Карта
+                </a>
+                <a href="rewards.html" class="menu-btn btn-blue">
+                    <i class="fas fa-gift"></i> Награды
+                </a>
             </div>
+
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Выйти
+            </button>
         </div>
     </div>
+
+    <script>
+        // Проверка авторизации
+        window.addEventListener('load', () => {
+            const isLoggedIn = localStorage.getItem('savedEmail') || sessionStorage.getItem('loggedIn');
+            if (!isLoggedIn) {
+                alert('Пожалуйста, войдите в систему.');
+                window.location.href = 'register.html'; // или login.html
+            } else {
+                sessionStorage.setItem('loggedIn', 'true');
+            }
+        });
+
+        // Выход
+        function logout() {
+            localStorage.removeItem('savedEmail');
+            sessionStorage.removeItem('loggedIn');
+            window.location.href = 'register.html';
+        }
+    </script>
 
 </body>
 </html>

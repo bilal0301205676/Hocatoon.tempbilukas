@@ -1,151 +1,300 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>GreenEcoChain - Награды</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GreenEcoChain — Награды</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         :root {
-            --green-dark: #086B3C;
-            --green-accent: #1FA84B;
-            --header-dark: #2c2c2c;
-            --card-bg: #FFFFFF;
-            --token-color: #FFC107; /* Желтый для токенов */
+            --green-1: #0f8e4e;
+            --green-2: #0a6b44;
+            --accent: #28a745;
+            --accent-dark: #0e8b3f;
+            --token: #FFC107;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 40px rgba(8, 40, 20, 0.25);
+            --radius: 24px;
+            --header-bg: #1a3d2e;
+            --text-dark: #1f3f33;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, #FFFFFF 0%, var(--green-dark) 100%);
-            color: var(--text-color);
+            background: linear-gradient(180deg, #FFFFFF 0%, #086B3C 100%);
+            color: var(--text-dark);
             min-height: 100vh;
         }
 
-        /* --- СТИЛИ ШАПКИ (HEADER) - Общие --- */
-        header { width: 100%; position: sticky; top: 0; z-index: 1000; }
-        .header-top { background: var(--header-dark); color: #FFFFFF; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
-        .profile-circle { width: 36px; height: 36px; border-radius: 50%; background: #D8F6E8; color: var(--green-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-        .navigation-bar { background: #FFFFFF; border-radius: 0 0 25px 25px; padding: 12px 5%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
-        .nav-links { display: flex; justify-content: space-around; list-style: none; max-width: 900px; margin: 0 auto; }
-        .nav-link a { text-decoration: none; color: #333333; font-size: 15px; font-weight: 600; padding: 5px 15px; border-bottom: 3px solid transparent; }
-        .nav-link.active a { color: var(--green-accent); border-bottom: 3px solid var(--green-accent); }
-        
-        /* --- СТИЛИ НАГРАД --- */
-        .rewards-container {
-            padding: 40px 5%; 
-            max-width: 1200px; 
+        /* === ШАПКА === */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--header-bg);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-top {
+            padding: 14px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .logo {
+            font-size: 22px;
+            letter-spacing: 1.5px;
+            color: #fff;
+        }
+
+        .profile-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #d8f6e8;
+            color: var(--green-1);
+            font-weight: 800;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .navigation-bar {
+            background: white;
+            padding: 10px 5%;
+            border-radius: 0 0 24px 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            list-style: none;
+            flex-wrap: wrap;
+            max-width: 1000px;
             margin: 0 auto;
         }
+
+        .nav-link a {
+            text-decoration: none;
+            color: #444;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 16px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-link a:hover {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--accent);
+        }
+
+        .nav-link.active a {
+            background: var(--accent);
+            color: white;
+            font-weight: 700;
+        }
+
+        /* === КОНТЕНТ === */
+        .rewards-container {
+            padding: 40px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         .main-title {
-            font-size: 44px; 
-            font-weight: 800; 
-            color: #FFFFFF;
-            margin-bottom: 30px;
+            font-size: 38px;
+            font-weight: 800;
+            color: white;
             text-align: center;
+            margin-bottom: 32px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
 
         .balance-info {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 20px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 24px;
             text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 36px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(6px);
         }
+
         .balance-info h2 {
-            font-size: 20px;
+            font-size: 18px;
             color: #555;
             font-weight: 600;
+            margin-bottom: 8px;
         }
-        .balance-info strong {
-            font-size: 36px;
-            color: var(--token-color);
+
+        .balance-value {
+            font-size: 42px;
             font-weight: 800;
-            display: block;
-            margin-top: 5px;
+            color: var(--token);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .rewards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            gap: 24px;
         }
 
         .reward-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            background: var(--bg-card);
+            border-radius: var(--radius);
             overflow: hidden;
-            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+            backdrop-filter: blur(6px);
+        }
+
+        .reward-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(8, 40, 20, 0.3);
         }
 
         .reward-image {
             width: 100%;
-            height: 200px;
-            background: #D8F6E8; /* Заглушка */
+            height: 180px;
+            background: #d8f6e8;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 40px;
+            font-size: 56px;
             font-weight: 800;
+            color: var(--green-1);
         }
 
         .reward-details {
-            padding: 20px;
+            padding: 24px;
+            text-align: center;
         }
 
         .reward-title {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
-            color: var(--green-dark);
-            margin-bottom: 10px;
+            color: var(--green-1);
+            margin-bottom: 12px;
+            line-height: 1.3;
         }
 
         .reward-price {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 800;
-            color: var(--token-color);
+            color: var(--token);
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
+
         .reward-price span {
             font-size: 16px;
             font-weight: 600;
-            color: #555;
-            margin-left: 5px;
+            color: #666;
         }
 
         .buy-btn {
-            display: block;
             width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: none;
-            background: var(--green-accent);
+            padding: 14px;
+            background: var(--accent);
             color: white;
+            border: none;
+            border-radius: 16px;
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        .buy-btn:hover { background: #198754; }
+
+        .buy-btn:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+        }
+
+        .buy-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 16px 20px;
+            border-radius: 16px;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* === АДАПТИВНОСТЬ === */
+        @media (max-width: 992px) {
+            .nav-links { gap: 6px; }
+            .nav-link a { font-size: 13px; padding: 5px 10px; }
+        }
+
+        @media (max-width: 768px) {
+            .main-title { font-size: 32px; }
+            .rewards-container { padding: 30px 5%; }
+            .balance-value { font-size: 36px; }
+            .reward-image { height: 160px; font-size: 48px; }
+        }
+
+        @media (max-width: 576px) {
+            .header-top { padding: 12px 4%; }
+            .logo { font-size: 20px; }
+            .rewards-grid { gap: 20px; }
+            .reward-details { padding: 20px; }
+        }
     </style>
 </head>
 <body>
 
     <header>
         <div class="header-top">
-            <div class="logo">ECOCHAIN</div>
+            <div class="logo">GreenEcoChain</div>
             <div class="profile-circle">А</div>
         </div>
         <nav class="navigation-bar">
             <ul class="nav-links">
-                <li class="nav-link"><a href="index.html">Главное</a></li>
-                <li class="nav-link"><a href="quest.html">Квест</a></li>
-                <li class="nav-link"><a href="leaderboard.html">Таблица лидеров</a></li>
+                <li class="nav-link"><a href="main-menu.html">Главная</a></li>
+                <li class="nav-link"><a href="quest.html">Квесты</a></li>
+                <li class="nav-link"><a href="leaderboard.html">Лидеры</a></li>
                 <li class="nav-link"><a href="games.html">Игры</a></li>
                 <li class="nav-link"><a href="map.html">Карта</a></li>
                 <li class="nav-link active"><a href="rewards.html">Награды</a></li>
@@ -159,41 +308,87 @@
         <h1 class="main-title">Каталог Эко-Наград</h1>
 
         <div class="balance-info">
-            <h2>Ваш текущий баланс:</h2>
-            <strong>1950 SECO</strong>
+            <h2>Ваш баланс SECO</h2>
+            <div class="balance-value" id="balance-value">
+                1950
+            </div>
         </div>
 
         <div class="rewards-grid">
-            
             <div class="reward-card">
-                <div class="reward-image">🌱</div>
+                <div class="reward-image">Tree</div>
                 <div class="reward-details">
-                    <div class="reward-title">Посадка вашего дерева</div>
+                    <div class="reward-title">Посадка дерева в вашем имени</div>
                     <div class="reward-price">3000 <span>SECO</span></div>
-                    <button class="buy-btn">Купить</button>
-                </div>
-            </div>
-            
-            <div class="reward-card">
-                <div class="reward-image">☕</div>
-                <div class="reward-details">
-                    <div class="reward-title">Скидка 10% в эко-кофейне</div>
-                    <div class="reward-price">500 <span>SECO</span></div>
-                    <button class="buy-btn">Купить</button>
+                    <button class="buy-btn" data-price="3000">Купить</button>
                 </div>
             </div>
 
             <div class="reward-card">
-                <div class="reward-image">📘</div>
+                <div class="reward-image">Coffee</div>
+                <div class="reward-details">
+                    <div class="reward-title">Скидка 10% в эко-кофейне</div>
+                    <div class="reward-price">500 <span>SECO</span></div>
+                    <button class="buy-btn" data-price="500">Купить</button>
+                </div>
+            </div>
+
+            <div class="reward-card">
+                <div class="reward-image">Book</div>
                 <div class="reward-details">
                     <div class="reward-title">Электронная книга об экологии</div>
                     <div class="reward-price">250 <span>SECO</span></div>
-                    <button class="buy-btn">Купить</button>
+                    <button class="buy-btn" data-price="250">Купить</button>
                 </div>
             </div>
-            
         </div>
     </main>
+
+    <!-- Уведомление -->
+    <div class="notification" id="notification">
+        <span id="notification-text"></span>
+    </div>
+
+    <script>
+        // Защита от прямого доступа
+        window.addEventListener('load', () => {
+            if (!sessionStorage.getItem('loggedIn')) {
+                alert('Пожалуйста, войдите в систему.');
+                window.location.href = 'index.html';
+            }
+
+            // Инициализация баланса
+            let balance = parseInt(sessionStorage.getItem('secoBalance')) || 1950;
+            document.getElementById('balance-value').textContent = balance;
+
+            // Покупка награды
+            document.querySelectorAll('.buy-btn').forEach(btn => {
+                const price = parseInt(btn.dataset.price);
+                btn.addEventListener('click', () => {
+                    if (balance >= price) {
+                        balance -= price;
+                        sessionStorage.setItem('secoBalance', balance);
+                        document.getElementById('balance-value').textContent = balance;
+                        showNotification(`Покупка успешна! Списано ${price} SECO`);
+                    } else {
+                        showNotification('Недостаточно SECO', 'error');
+                    }
+                });
+            });
+
+            function showNotification(message, type = 'success') {
+                const notif = document.getElementById('notification');
+                const text = document.getElementById('notification-text');
+                text.textContent = message;
+                notif.style.background = type === 'error' ? '#dc3545' : '#28a745';
+                notif.style.display = 'flex';
+
+                setTimeout(() => {
+                    notif.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
 
 </body>
 </html>

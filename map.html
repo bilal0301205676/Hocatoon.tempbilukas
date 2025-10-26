@@ -1,68 +1,221 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>GreenEcoChain - Карта</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GreenEcoChain — Карта</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <style>
         :root {
-            --green-dark: #086B3C;
-            --green-accent: #1FA84B;
-            --header-dark: #2c2c2c;
-            --card-bg: #FFFFFF;
+            --green-1: #0f8e4e;
+            --green-2: #0a6b44;
+            --accent: #28a745;
+            --accent-dark: #0e8b3f;
+            --token: #FFC107;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 40px rgba(8, 40, 20, 0.25);
+            --radius: 24px;
+            --header-bg: #1a3d2e;
+            --text-dark: #1f3f33;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, #FFFFFF 0%, var(--green-dark) 100%);
-            color: var(--text-color);
+            background: linear-gradient(180deg, #FFFFFF 0%, #086B3C 100%);
+            color: var(--text-dark);
             min-height: 100vh;
         }
 
-        /* --- СТИЛИ ШАПКИ (HEADER) - Общие --- */
-        header { width: 100%; position: sticky; top: 0; z-index: 1000; }
-        .header-top { background: var(--header-dark); color: #FFFFFF; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 24px; font-weight: 800; letter-spacing: 1px; }
-        .profile-circle { width: 36px; height: 36px; border-radius: 50%; background: #D8F6E8; color: var(--green-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-        .navigation-bar { background: #FFFFFF; border-radius: 0 0 25px 25px; padding: 12px 5%; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
-        .nav-links { display: flex; justify-content: space-around; list-style: none; max-width: 900px; margin: 0 auto; }
-        .nav-link a { text-decoration: none; color: #333333; font-size: 15px; font-weight: 600; padding: 5px 15px; border-bottom: 3px solid transparent; }
-        .nav-link.active a { color: var(--green-accent); border-bottom: 3px solid var(--green-accent); }
-        
-        /* --- СТИЛИ КАРТЫ --- */
-        .map-container {
-            padding: 40px 5%; 
-            max-width: 1200px; 
+        /* === ШАПКА === */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--header-bg);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-top {
+            padding: 14px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .logo {
+            font-size: 22px;
+            letter-spacing: 1.5px;
+            color: #fff;
+        }
+
+        .profile-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #d8f6e8;
+            color: var(--green-1);
+            font-weight: 800;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .navigation-bar {
+            background: white;
+            padding: 10px 5%;
+            border-radius: 0 0 24px 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            list-style: none;
+            flex-wrap: wrap;
+            max-width: 1000px;
             margin: 0 auto;
         }
+
+        .nav-link a {
+            text-decoration: none;
+            color: #444;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 16px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-link a:hover {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--accent);
+        }
+
+        .nav-link.active a {
+            background: var(--accent);
+            color: white;
+            font-weight: 700;
+        }
+
+        /* === КОНТЕНТ === */
+        .map-container {
+            padding: 40px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         .main-title {
-            font-size: 44px; 
-            font-weight: 800; 
-            color: #FFFFFF;
-            margin-bottom: 30px;
+            font-size: 38px;
+            font-weight: 800;
+            color: white;
+            text-align: center;
+            margin-bottom: 32px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
-        
+
+        .map-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #ddd;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .filter-btn:hover:not(.active) {
+            border-color: var(--accent);
+            background: #f0fff0;
+        }
+
+        .locate-btn {
+            padding: 10px 18px;
+            background: #1E88E5;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .locate-btn:hover {
+            background: #1565c0;
+            transform: translateY(-2px);
+        }
+
         #map {
-            height: 600px; 
-            border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            z-index: 1; 
+            height: 560px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            z-index: 1;
+            backdrop-filter: blur(6px);
         }
-        
+
         .map-info-panel {
-            background: var(--card-bg);
+            background: var(--bg-card);
             padding: 20px;
-            border-radius: 20px;
+            border-radius: var(--radius);
             margin-top: 20px;
-            font-size: 16px;
+            font-size: 15px;
             color: #555;
             text-align: center;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(6px);
+        }
+
+        /* === АДАПТИВНОСТЬ === */
+        @media (max-width: 992px) {
+            .nav-links { gap: 6px; }
+            .nav-link a { font-size: 13px; padding: 5px 10px; }
+        }
+
+        @media (max-width: 768px) {
+            .main-title { font-size: 32px; }
+            .map-container { padding: 30px 5%; }
+            #map { height: 480px; }
+            .map-controls { justify-content: flex-start; }
+        }
+
+        @media (max-width: 576px) {
+            .header-top { padding: 12px 4%; }
+            .logo { font-size: 20px; }
+            .filter-btn, .locate-btn { font-size: 13px; padding: 8px 14px; }
+            #map { height: 400px; }
         }
     </style>
 </head>
@@ -70,14 +223,14 @@
 
     <header>
         <div class="header-top">
-            <div class="logo">ECOCHAIN</div>
+            <div class="logo">GreenEcoChain</div>
             <div class="profile-circle">А</div>
         </div>
         <nav class="navigation-bar">
             <ul class="nav-links">
-                <li class="nav-link"><a href="index.html">Главное</a></li>
-                <li class="nav-link"><a href="quest.html">Квест</a></li>
-                <li class="nav-link"><a href="leaderboard.html">Таблица лидеров</a></li>
+                <li class="nav-link"><a href="m.html">Главная</a></li>
+                <li class="nav-link"><a href="quest.html">Квесты</a></li>
+                <li class="nav-link"><a href="leaderboard.html">Лидеры</a></li>
                 <li class="nav-link"><a href="games.html">Игры</a></li>
                 <li class="nav-link active"><a href="map.html">Карта</a></li>
                 <li class="nav-link"><a href="rewards.html">Награды</a></li>
@@ -88,31 +241,115 @@
     </header>
 
     <main class="map-container">
-        <h1 class="main-title">Эко-Карта (Пункты приема и посадки)</h1>
+        <h1 class="main-title">Эко-Карта</h1>
+
+        <div class="map-controls">
+            <button class="filter-btn active" data-type="all">
+                Все
+            </button>
+            <button class="filter-btn" data-type="recycle">
+                Пункты приёма
+            </button>
+            <button class="filter-btn" data-type="tree">
+                Посадка деревьев
+            </button>
+            <button class="locate-btn" id="locate-btn">
+                Моя геолокация
+            </button>
+        </div>
 
         <div id="map"></div>
-        
+
         <div class="map-info-panel">
-            <p>Здесь будут отображаться ближайшие пункты приема мусора и места, где можно посадить дерево для выполнения квестов. (Используется библиотека Leaflet)</p>
+            <p>Используйте фильтры, чтобы найти ближайшие пункты приёма мусора или места для посадки деревьев.</p>
         </div>
     </main>
-    
+
     <script>
-        // Инициализация карты (Leaflet)
-        const map = L.map('map').setView([55.75, 37.61], 10); // Координаты для примера (Москва)
+        // Защита от прямого доступа
+        window.addEventListener('load', () => {
+            if (!sessionStorage.getItem('loggedIn')) {
+                alert('Пожалуйста, войдите в систему.');
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Инициализация карты
+        const map = L.map('map').setView([55.7558, 37.6173], 11);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
+            attribution: '© OpenStreetMap'
         }).addTo(map);
 
-        // Пример маркеров
-        L.marker([55.75, 37.61]).addTo(map)
-            .bindPopup('Центральный пункт сбора пластика.')
-            .openPopup();
-            
-        L.marker([55.8, 37.7]).addTo(map)
-            .bindPopup('🌳 Рекомендуемое место для посадки деревьев.')
-            .openPopup();
+        // Кастомные иконки
+        const recycleIcon = L.divIcon({
+            html: `<i class="fas fa-recycle" style="color:#28a745;font-size:24px;"></i>`,
+            iconSize: [30, 30],
+            className: 'custom-icon'
+        });
+
+        const treeIcon = L.divIcon({
+            html: `<i class="fas fa-tree" style="color:#0f8e4e;font-size:24px;"></i>`,
+            iconSize: [30, 30],
+            className: 'custom-icon'
+        });
+
+        // Данные маркеров
+        const markers = [
+            { lat: 55.7558, lng: 37.6173, type: 'recycle', title: 'Центральный пункт приёма пластика', desc: 'Принимаем: пластик, стекло, бумага' },
+            { lat: 55.78, lng: 37.63, type: 'recycle', title: 'Пункт приёма батареек', desc: 'Только батарейки и аккумуляторы' },
+            { lat: 55.73, lng: 37.59, type: 'tree', title: 'Зона посадки деревьев', desc: 'Идеально для квеста "Посади дерево"' },
+            { lat: 55.77, lng: 37.65, type: 'tree', title: 'Парк "Зелёная зона"', desc: 'Можно посадить саженец с геотегом' },
+            { lat: 55.76, lng: 37.64, type: 'recycle', title: 'Эко-контейнер', desc: 'Пластик, металл, стекло' }
+        ];
+
+        let markerLayer = L.layerGroup().addTo(map);
+
+        function addMarkers(filter = 'all') {
+            markerLayer.clearLayers();
+            markers.forEach(m => {
+                if (filter === 'all' || m.type === filter) {
+                    const icon = m.type === 'recycle' ? recycleIcon : treeIcon;
+                    L.marker([m.lat, m.lng], { icon })
+                        .addTo(markerLayer)
+                        .bindPopup(`<b>${m.title}</b><br>${m.desc}`);
+                }
+            });
+        }
+
+        // Фильтры
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                addMarkers(btn.dataset.type);
+            });
+        });
+
+        // Геолокация
+        document.getElementById('locate-btn').addEventListener('click', () => {
+            if ('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    const { latitude, longitude } = pos.coords;
+                    map.setView([latitude, longitude], 14);
+                    L.marker([latitude, longitude], { icon: L.divIcon({ 
+                        html: `<i class="fas fa-map-marker-alt" style="color:#1E88E5;font-size:28px;"></i>`,
+                        iconSize: [30, 30]
+                    })})
+                    .addTo(map)
+                    .bindPopup('Вы здесь!')
+                    .openPopup();
+                }, () => {
+                    alert('Не удалось определить местоположение.');
+                });
+            } else {
+                alert('Геолокация не поддерживается вашим браузером.');
+            }
+        });
+
+        // Инициализация
+        addMarkers();
     </script>
+
 </body>
 </html>
