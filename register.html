@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GreenEcoChain — Вход и Меню</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    :root {
+      --green-1: #0f8e4e;
+      --green-2: #0a6b44;
+      --accent: #28a745;
+      --accent-dark: #0e8b3f;
+      --input-bg: #ffffff;
+      --shadow: 0 8px 30px rgba(8,40,20,0.25);
+      --radius-big: 60px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: #0b2b1b;
+      background: linear-gradient(180deg, #FFFFFF 0%, #086B3C 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page {
+      width: 1280px;
+      height: 880px;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 40px;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.05);
+      border-radius: 40px;
+      padding: 20px 40px;
+    }
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+      min-height: 520px;
+      padding-top: 20px;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 240px;
+      height: 240px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #b8f0cd 0%, #199356 50%, #0b6a44 100%);
+      box-shadow: 0 6px 30px rgba(6,60,40,0.35);
+    }
+
+    .logo-text {
+      font-weight: 800;
+      color: rgba(245,255,245,0.95);
+      letter-spacing: 4px;
+      font-size: 26px;
+      text-transform: uppercase;
+      margin-top: 20px;
+    }
+
+    .app-name {
+      font-weight: 400;
+      color: rgba(245,255,245,0.9);
+      font-size: 18px;
+      letter-spacing: 2px;
+      margin-top: -10px;
+    }
+
+    .card-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 760px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(230,255,245,0.5));
+      border-radius: var(--radius-big);
+      padding: 48px 64px;
+      box-shadow: var(--shadow);
+      position: relative;
+      backdrop-filter: blur(8px) saturate(1.1);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 8px;
+    }
+
+    .mini-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #9ff0c8, #53c992);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 10px rgba(6,60,40,0.18);
+    }
+
+    .tabs {
+      margin-left: auto;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      border-radius: 24px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s;
+    }
+
+    .tab.active {
+      background: linear-gradient(90deg, #24b14d, #1b9a3c);
+      color: white;
+      box-shadow: 0 3px 8px rgba(10,80,40,0.18);
+    }
+
+    .tab:not(.active) {
+      background: rgba(255,255,255,0.6);
+      color: rgba(5,45,20,0.7);
+    }
+
+    h1 {
+      font-size: 44px;
+      margin: 18px 0 28px 0;
+      font-weight: 600;
+      color: #072916;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #16462f;
+    }
+
+    .input {
+      width: 100%;
+      padding: 18px 22px;
+      border-radius: 24px;
+      border: none;
+      background: var(--input-bg);
+      box-shadow: 0 6px 18px rgba(2,20,10,0.06);
+      font-size: 15px;
+      outline: none;
+    }
+
+    .submit {
+      margin-top: 8px;
+      width: fit-content;
+      background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+      color: white;
+      padding: 14px 26px;
+      border-radius: 28px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(11,110,60,0.18);
+      align-self: flex-start;
+    }
+
+    .submit:hover { background: var(--accent-dark); }
+
+    .socials {
+      margin-top: 28px;
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+    }
+
+    .social {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    .social:hover { transform: scale(1.05); }
+  </style>
+</head>
+
+<body>
+
+<div class="page">
+  <div class="left">
+    <div class="logo-wrap">
+      <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+        <path d="M50 0C22.3858 0 0 22.3858 0 50C0 77.6142 22.3858 100 50 100C77.6142 100 100 77.6142 100 50C100 22.3858 77.6142 0 50 0ZM38.3333 75.8333L16.6667 54.1667L23.75 47.0833L38.3333 61.6667L76.25 23.75L83.3333 30.8333L38.3333 75.8333Z" fill="white"/>
+      </svg>
+    </div>
+    <div class="logo-text">EGC</div>
+    <div class="app-name">GreenEcoChain</div>
+  </div>
+
+  <div class="card-wrap">
+    <div class="card">
+      <div class="card-top">
+        <div class="mini-logo">
+          <i class="fas fa-leaf" style="color:#0f8e4e; font-size:24px;"></i>
+        </div>
+        <div class="tabs">
+          <div class="tab active" data-mode="login">Вход</div>
+          <div class="tab" data-mode="register">Регистрация</div>
+        </div>
+      </div>
+
+      <h1 id="auth-title">Добро пожаловать</h1>
+
+      <form id="auth-form">
+        <label for="email">Email</label>
+        <input type="email" id="email" class="input" placeholder="you@example.com" required>
+
+        <label for="password">Пароль</label>
+        <input type="password" id="password" class="input" placeholder="••••••••" required>
+
+        <label class="remember">
+          <input type="checkbox" id="remember"> Запомнить меня
+        </label>
+
+        <button type="submit" id="submit-btn" class="submit">Войти</button>
+      </form>
+
+      <div class="socials">
+        <div class="social"><i class="fab fa-google" style="color:#db4437;"></i></div>
+        <div class="social"><i class="fab fa-facebook-f" style="color:#1877f2;"></i></div>
+        <div class="social"><i class="fab fa-twitter" style="color:#1da1f2;"></i></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const tabs = document.querySelectorAll('.tab');
+const authTitle = document.getElementById('auth-title');
+const submitBtn = document.getElementById('submit-btn');
+const form = document.getElementById('auth-form');
+const emailInput = document.getElementById('email');
+let currentMode = 'login';
+
+if(localStorage.getItem('savedEmail')){
+  emailInput.value = localStorage.getItem('savedEmail');
+  document.getElementById('remember').checked = true;
+}
+
+tabs.forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    tabs.forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    currentMode = tab.dataset.mode;
+    if(currentMode==='login'){
+      authTitle.textContent = 'Добро пожаловать';
+      submitBtn.textContent = 'Войти';
+    } else {
+      authTitle.textContent = 'Создайте аккаунт';
+      submitBtn.textContent = 'Зарегистрироваться';
+    }
+  });
+});
+
+function validateEmail(email){
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email.toLowerCase());
+}
+
+form.addEventListener('submit', e=>{
+  e.preventDefault();
+  const email = emailInput.value.trim();
+  const password = document.getElementById('password').value.trim();
+
+  if(!email || !password){
+    alert('Пожалуйста, заполните все поля.');
+    return;
+  }
+  if(!validateEmail(email)){
+    alert('Введите корректный email.');
+    return;
+  }
+
+  if(document.getElementById('remember').checked){
+    localStorage.setItem('savedEmail', email);
+  } else {
+    localStorage.removeItem('savedEmail');
+  }
+
+  // Переход на главное меню
+  window.location.href = 'main-menu.html';
+});
+</script>
+
+</body>
+</html>
