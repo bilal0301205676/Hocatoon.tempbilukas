@@ -257,25 +257,30 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
         // Проверка авторизации
         window.addEventListener('load', () => {
-            const isLoggedIn = localStorage.getItem('savedEmail') || sessionStorage.getItem('loggedIn');
-            if (!isLoggedIn) {
-                alert('Пожалуйста, войдите в систему.');
-                window.location.href = 'register.html'; // или login.html
-            } else {
-                sessionStorage.setItem('loggedIn', 'true');
-            }
-        });
-
-        // Выход
-        function logout() {
-            localStorage.removeItem('savedEmail');
-            sessionStorage.removeItem('loggedIn');
+          const isLoggedIn = sessionStorage.getItem('loggedIn');
+          const savedEmail = localStorage.getItem('savedEmail');
+      
+          if (!isLoggedIn) {
+            alert('Пожалуйста, войдите в систему.');
             window.location.href = 'register.html';
-        }
-    </script>
+            return;
+          }
+      
+          // Показываем первую букву email
+          const email = sessionStorage.getItem('userEmail') || savedEmail || 'U';
+          document.querySelector('.profile-circle')?.append(email[0].toUpperCase());
+        });
+      
+        // Выход
+        window.logout = function() {
+          sessionStorage.clear();
+          localStorage.removeItem('savedEmail');
+          window.location.href = 'register.html';
+        };
+      </script>
 
 </body>
 </html>

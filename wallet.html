@@ -8,6 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <!-- Ethers.js -->
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js" type="text/javascript"></script>
+
     <style>
         :root {
             --green-1: #0f8e4e;
@@ -163,6 +166,7 @@
             color: #555;
             word-break: break-all;
             user-select: all;
+            cursor: pointer;
         }
 
         .action-buttons {
@@ -215,6 +219,8 @@
             padding: 20px;
             box-shadow: var(--shadow);
             list-style: none;
+            max-height: 400px;
+            overflow-y: auto;
         }
 
         .transaction-item {
@@ -349,7 +355,6 @@
             .main-title { font-size: 32px; }
             .action-buttons { flex-direction: column; }
             .wallet-container { padding: 30px 5%; }
-            .nav-links { justify-content: center; flex-wrap: wrap; }
         }
 
         @media (max-width: 576px) {
@@ -372,7 +377,7 @@
                 <li class="nav-link active"><a href="wallet.html">Кошелёк</a></li>
                 <li class="nav-link"><a href="quest.html">Квесты</a></li>
                 <li class="nav-link"><a href="leaderboard.html">Лидеры</a></li>
-                <li class="nav-link"><a href="igra.html">Игры</a></li>
+                <li class="nav-link"><a href="games.html">Игры</a></li>
                 <li class="nav-link"><a href="map.html">Карта</a></li>
                 <li class="nav-link"><a href="rewards.html">Награды</a></li>
                 <li class="nav-link"><a href="profile.html">Профиль</a></li>
@@ -386,9 +391,9 @@
 
         <div class="balance-card">
             <h2>Текущий баланс</h2>
-            <strong id="current-balance">1950 SECO</strong>
-            <div class="wallet-address" onclick="copyAddress(this)">
-                Адрес: <span>0xEcO2fA89D342B7C0...3e4Bb1A</span>
+            <strong id="current-balance">0 SECO</strong>
+            <div class="wallet-address" id="wallet-address" onclick="copyAddress(this)">
+                Адрес: <span id="address-span">Подключите MetaMask</span>
                 <br><small style="color:#28a745; cursor:pointer;">Нажмите, чтобы скопировать</small>
             </div>
         </div>
@@ -407,24 +412,9 @@
             <ul class="transaction-list" id="transaction-list">
                 <li class="transaction-item">
                     <div class="trans-details">
-                        <strong>Получение от Квеста</strong>
-                        <p>Викторина "Лист или Хвоя"</p>
+                        <strong>Подключите MetaMask</strong>
+                        <p>Чтобы увидеть историю</p>
                     </div>
-                    <div class="trans-amount receive">+45 SECO</div>
-                </li>
-                <li class="transaction-item">
-                    <div class="trans-details">
-                        <strong>Расход на Награду</strong>
-                        <p>Электронная книга об экологии</p>
-                    </div>
-                    <div class="trans-amount send">-250 SECO</div>
-                </li>
-                <li class="transaction-item">
-                    <div class="trans-details">
-                        <strong>Получение от Квеста</strong>
-                        <p>Сбор 1 кг пластика</p>
-                    </div>
-                    <div class="trans-amount receive">+20 SECO</div>
                 </li>
             </ul>
         </div>
@@ -435,48 +425,149 @@
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <h2>Отправка SECO</h2>
-            <form class="modal-form" onsubmit="handleSend(event)">
+            <form class="modal-form" id="send-form">
                 <input type="text" id="recipient-address" placeholder="Адрес получателя (0x...)" required>
-                <input type="number" id="send-amount" placeholder="Сумма SECO" min="1" required>
+                <input type="number" id="send-amount" placeholder="Сумма SECO" min="0.000001" step="0.000001" required>
                 <button type="submit">Отправить</button>
             </form>
-            <div class="modal-note">Имитация блокчейн-транзакции</div>
+            <div class="modal-note">Транзакция будет отправлена в блокчейн</div>
         </div>
     </div>
 
     <script>
-        // === АВТОРИЗАЦИЯ ===
-        window.addEventListener('load', () => {
+        // === КОНФИГУРАЦИЯ ===
+        const CONTRACT_ADDRESS = '0xТВОЙ_АДРЕС_КОНТРАКТА'; // ← Замени на адрес из Remix
+        const CONTRACT_ABI = [
+            "function balanceOf(address) view returns (uint256)",
+            "function transfer(address to, uint256 amount) returns (bool)",
+            "function decimals() view returns (uint8)",
+            "event Transfer(address indexed from, address indexed to, uint256 value)"
+        ];
+
+        let provider, signer, contract, userAddress;
+        const balanceEl = document.getElementById('current-balance');
+        const addressSpan = document.getElementById('address-span');
+        const transactionList = document.getElementById('transaction-list');
+
+        // === ИНИЦИАЛИЗАЦИЯ ===
+        window.addEventListener('load', async () => {
             if (!sessionStorage.getItem('loggedIn')) {
                 alert('Пожалуйста, войдите в систему.');
-                window.location.href = 'index.html';
+                window.location.href = 'register.html';
             }
+
+            if (typeof window.ethereum === 'undefined') {
+                alert('Установите MetaMask!');
+                return;
+            }
+
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+            await connectWallet();
         });
 
-        // === БАЛАНС ===
-        let balance = 1950;
-        const balanceEl = document.getElementById('current-balance');
-        const amountInput = document.getElementById('send-amount');
+        // === ПОДКЛЮЧЕНИЕ КОШЕЛЬКА ===
+        async function connectWallet() {
+            try {
+                await provider.send("eth_requestAccounts", []);
+                signer = provider.getSigner();
+                userAddress = await signer.getAddress();
+                contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 
-        function updateBalance() {
-            balanceEl.textContent = `${balance} SECO`;
-            amountInput.setAttribute('max', balance);
-            amountInput.placeholder = `Макс: ${balance} SECO`;
+                addressSpan.textContent = userAddress;
+                await updateBalance();
+                await loadTransactions();
+            } catch (err) {
+                console.error(err);
+                alert('Не удалось подключиться к MetaMask');
+            }
         }
-        updateBalance();
+
+        // === ОБНОВЛЕНИЕ БАЛАНСА ===
+        async function updateBalance() {
+            try {
+                const balanceWei = await contract.balanceOf(userAddress);
+                const decimals = await contract.decimals();
+                const balance = ethers.utils.formatUnits(balanceWei, decimals);
+                balanceEl.textContent = `${parseFloat(balance).toFixed(6)} SECO`;
+            } catch (err) {
+                balanceEl.textContent = 'Ошибка';
+            }
+        }
+
+        // === ИСТОРИЯ ТРАНЗАКЦИЙ ===
+        async function loadTransactions() {
+            transactionList.innerHTML = '';
+            try {
+                const filter = contract.filters.Transfer(userAddress);
+                const events = await contract.queryFilter(filter, -10000); // последние 10k блоков
+
+                if (events.length === 0) {
+                    transactionList.innerHTML = '<li class="transaction-item"><div class="trans-details"><p>Нет транзакций</p></div></li>';
+                    return;
+                }
+
+                events.reverse().slice(0, 10).forEach(event => {
+                    const { from, to, value } = event.args;
+                    const amount = ethers.utils.formatUnits(value, 18);
+                    const isReceive = to.toLowerCase() === userAddress.toLowerCase();
+                    const type = isReceive ? 'receive' : 'send';
+                    const title = isReceive ? 'Получение' : 'Отправка';
+
+                    const item = document.createElement('li');
+                    item.className = 'transaction-item';
+                    item.innerHTML = `
+                        <div class="trans-details">
+                            <strong>${title}</strong>
+                            <p>${isReceive ? 'От' : 'На'}: ${isReceive ? from.slice(0, 8) : to.slice(0, 8)}...</p>
+                        </div>
+                        <div class="trans-amount ${type}">${isReceive ? '+' : '-'}${parseFloat(amount).toFixed(4)} SECO</div>
+                    `;
+                    transactionList.appendChild(item);
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
 
         // === МОДАЛЬНОЕ ОКНО ===
         const modal = document.getElementById('send-modal');
         const sendBtn = document.getElementById('send-btn');
         const closeBtn = document.querySelector('.close-btn');
+        const form = document.getElementById('send-form');
 
         sendBtn.onclick = () => modal.style.display = 'block';
         closeBtn.onclick = () => modal.style.display = 'none';
         window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
 
+        // === ОТПРАВКА ===
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const to = document.getElementById('recipient-address').value.trim();
+            const amount = document.getElementById('send-amount').value;
+
+            if (!ethers.utils.isAddress(to)) {
+                alert('Некорректный адрес');
+                return;
+            }
+
+            try {
+                const amountWei = ethers.utils.parseUnits(amount, 18);
+                const tx = await contract.transfer(to, amountWei);
+                alert('Отправка... Ожидание подтверждения');
+                await tx.wait();
+                await updateBalance();
+                await loadTransactions();
+                alert(`Успешно отправлено ${amount} SECO!`);
+                modal.style.display = 'none';
+                form.reset();
+            } catch (err) {
+                alert(`Ошибка: ${err.message}`);
+            }
+        };
+
         // === КОПИРОВАНИЕ АДРЕСА ===
         function copyAddress(el) {
-            const text = el.querySelector('span').textContent;
+            const text = addressSpan.textContent;
             navigator.clipboard.writeText(text).then(() => {
                 const note = el.querySelector('small');
                 const original = note.textContent;
@@ -485,46 +576,9 @@
             });
         }
 
-        // === ПОЛУЧЕНИЕ (QR) ===
+        // === QR-КОД ===
         function showQR() {
-            alert('QR-код для получения:\n\n[Здесь будет QR-код]\n\nАдрес: 0xEcO2fA89D342B7C0...3e4Bb1A');
-        }
-
-        // === ОТПРАВКА ===
-        function handleSend(e) {
-            e.preventDefault();
-            const address = document.getElementById('recipient-address').value.trim();
-            const amount = parseInt(document.getElementById('send-amount').value);
-
-            if (!address || !/^0x[a-fA-F0-9]{40}$/.test(address)) {
-                alert('Введите корректный адрес (0x...)');
-                return;
-            }
-            if (isNaN(amount) || amount <= 0 || amount > balance) {
-                alert(`Недостаточно средств! Доступно: ${balance} SECO`);
-                return;
-            }
-
-            // Обновление баланса
-            balance -= amount;
-            updateBalance();
-
-            // Добавление транзакции
-            const list = document.getElementById('transaction-list');
-            const item = document.createElement('li');
-            item.className = 'transaction-item';
-            item.innerHTML = `
-                <div class="trans-details">
-                    <strong>Отправка токенов</strong>
-                    <p>На адрес: ${address.substring(0, 10)}...</p>
-                </div>
-                <div class="trans-amount send">-${amount} SECO</div>
-            `;
-            list.prepend(item);
-
-            alert(`Успешно отправлено ${amount} SECO!`);
-            modal.style.display = 'none';
-            e.target.reset();
+            alert(`QR-код для получения:\n\nАдрес: ${userAddress || 'Подключите MetaMask'}`);
         }
     </script>
 </body>

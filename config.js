@@ -1,1 +1,1 @@
-export const contract = "0x358AA13c52544ECCEF6B0ADD0f801012ADAD5eE3"
+export const contract = "0xb27A31f1b0AF2946B7F582768f03239b1eC07c2c"
